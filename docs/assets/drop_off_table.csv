@@ -1,0 +1,5 @@
+From,To,Lost,Drop-off %,Stage Conversion %
+Website Visit,Product Viewed,0,0.0,100.0
+Product Viewed,Add to Cart,64,53.3,46.7
+Add to Cart,Checkout Started,17,30.4,69.6
+Checkout Started,Purchase Completed,20,51.3,48.7

@@ -1,0 +1,6 @@
+Region,Total Customers,Product Viewed,Add to Cart,Checkout Started,Purchase Completed,Conversion Rate %,Total Revenue,Avg Revenue per Customer,Retention Rate %,Avg Feedback Score
+North,25,25,9,5,3,12.0,320.11,12.8,32.0,3.4
+South,24,24,13,10,3,12.5,249.58,10.4,25.0,3.96
+East,24,24,12,8,5,20.8,380.73,15.86,25.0,3.5
+West,31,31,18,12,8,25.8,1179.06,38.03,32.3,3.52
+Central,16,16,4,4,0,0.0,0.0,0.0,25.0,3.81

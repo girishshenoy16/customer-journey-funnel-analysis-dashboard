@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Executive Customer Journey Intelligence & Revenue Optimization Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div id="app">
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"><i class="fas fa-chart-line"></i></div>
+    <div class="loading-text">Executive Customer Journey Intelligence Platform</div>
+    <div class="loading-sub">Loading Dashboard...</div>
+    <div class="loading-progress" id="loadingProgress">
+      <div class="loading-bar"></div>
+    </div>
+  </div>
+
+  <header class="dashboard-header">
+    <div class="header-left">
+      <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
+      <div class="header-text">
+        <h1>Executive Customer Journey Intelligence</h1>
+        <span class="header-sub">Revenue Optimization Platform</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="header-badge"><i class="fas fa-calendar-alt"></i> Q2 2024</span>
+      <span class="header-badge live-badge" id="liveBadge"><i class="fas fa-circle"></i> Live</span>
+      <button id="toggleDrawer" class="header-toggle-btn" title="Toggle Filters"><i class="fas fa-sliders-h"></i> Filters</button>
+    </div>
+  </header>
+
+  <div class="dashboard-body">
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <aside class="filter-drawer" id="filterDrawer">
+      <div class="filter-drawer-header">
+        <span><i class="fas fa-sliders-h"></i> Filters</span>
+        <button id="closeDrawer" class="filter-drawer-close"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="filter-content">
+        <div class="active-filters" id="activeFilters">
+          <div class="active-filters-label">Active Filters</div>
+          <div class="active-filters-tags" id="activeFilterTags"></div>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-section-header open" data-target="regionGroup">
+            <i class="fas fa-chevron-down"></i> Region
+          </div>
+          <div class="filter-checkboxes" id="regionGroup">
+            <label class="filter-option"><input type="checkbox" value="North"> North</label>
+            <label class="filter-option"><input type="checkbox" value="South"> South</label>
+            <label class="filter-option"><input type="checkbox" value="East"> East</label>
+            <label class="filter-option"><input type="checkbox" value="West"> West</label>
+            <label class="filter-option"><input type="checkbox" value="Central"> Central</label>
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-section-header open" data-target="segmentGroup">
+            <i class="fas fa-chevron-down"></i> Segment
+          </div>
+          <div class="filter-checkboxes" id="segmentGroup">
+            <label class="filter-option"><input type="checkbox" value="Premium"> Premium</label>
+            <label class="filter-option"><input type="checkbox" value="Standard"> Standard</label>
+            <label class="filter-option"><input type="checkbox" value="Budget"> Budget</label>
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-section-header open" data-target="channelGroup">
+            <i class="fas fa-chevron-down"></i> Channel
+          </div>
+          <div class="filter-checkboxes" id="channelGroup">
+            <label class="filter-option"><input type="checkbox" value="Organic Search"> Organic Search</label>
+            <label class="filter-option"><input type="checkbox" value="Paid Ads"> Paid Ads</label>
+            <label class="filter-option"><input type="checkbox" value="Social Media"> Social Media</label>
+            <label class="filter-option"><input type="checkbox" value="Email"> Email</label>
+            <label class="filter-option"><input type="checkbox" value="Referral"> Referral</label>
+            <label class="filter-option"><input type="checkbox" value="Direct"> Direct</label>
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-section-header open" data-target="ageGroup">
+            <i class="fas fa-chevron-down"></i> Age Group
+          </div>
+          <div class="filter-checkboxes" id="ageGroup">
+            <label class="filter-option"><input type="checkbox" value="18-24"> 18-24</label>
+            <label class="filter-option"><input type="checkbox" value="25-34"> 25-34</label>
+            <label class="filter-option"><input type="checkbox" value="35-44"> 35-44</label>
+            <label class="filter-option"><input type="checkbox" value="45-54"> 45-54</label>
+            <label class="filter-option"><input type="checkbox" value="55+"> 55+</label>
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-section-header open" data-target="campaignGroup">
+            <i class="fas fa-chevron-down"></i> Campaign
+          </div>
+          <div class="filter-checkboxes" id="campaignGroup">
+            <label class="filter-option"><input type="checkbox" value="Summer Sale"> Summer Sale</label>
+            <label class="filter-option"><input type="checkbox" value="Winter Fest"> Winter Fest</label>
+            <label class="filter-option"><input type="checkbox" value="New User Offer"> New User Offer</label>
+            <label class="filter-option"><input type="checkbox" value="Referral Bonus"> Referral Bonus</label>
+            <label class="filter-option"><input type="checkbox" value="Holiday Special"> Holiday Special</label>
+            <label class="filter-option"><input type="checkbox" value="Flash Sale"> Flash Sale</label>
+            <label class="filter-option"><input type="checkbox" value="Brand Awareness"> Brand Awareness</label>
+            <label class="filter-option"><input type="checkbox" value="Retargeting"> Retargeting</label>
+          </div>
+        </div>
+      </div>
+        <div class="filter-footer">
+          <button id="applyFilters" class="btn-apply"><i class="fas fa-check"></i> Apply Filters</button>
+          <button id="resetFilters" class="btn-reset-sidebar"><i class="fas fa-undo"></i> Reset</button>
+          <div class="filter-footer-divider"></div>
+          <a id="viewReport" class="btn-report-sidebar" target="_blank"><i class="fas fa-file-alt"></i> Business Recommendations Report</a>
+          <div class="sidebar-footer-meta">
+            <span><i class="fas fa-clock"></i> Last Updated: Q2 2024</span>
+          </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+      <!-- ROW 1A: Primary Executive KPIs -->
+      <section class="kpi-row-primary">
+        <div class="kpi-card kpi-primary revenue" title="Total Revenue: Sum of all purchase values. Formula: SUM(purchase_value)">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:rgba(255,255,255,0.15);color:white"><i class="fas fa-dollar-sign"></i></div>
+            <div class="kpi-sparkline"><canvas id="sparkRevenue"></canvas></div>
+          </div>
+          <div class="kpi-value" id="kpiRevenue">$0</div>
+          <div class="kpi-label">Total Revenue</div>
+          <div class="kpi-trend up" id="kpiRevenueTrend"><i class="fas fa-arrow-up"></i> vs target</div>
+        </div>
+        <div class="kpi-card kpi-primary accent-green" title="Revenue Achievement: Percentage of revenue target achieved. Formula: (Actual Revenue / Target Revenue) × 100">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--success-light);color:var(--success)"><i class="fas fa-bullseye"></i></div>
+          </div>
+          <div class="kpi-value" id="kpiAchievement">0%</div>
+          <div class="kpi-label">Revenue Achievement</div>
+          <div class="kpi-trend up" id="kpiAchieveTrend"><i class="fas fa-check-circle"></i> of $3,000 target</div>
+        </div>
+        <div class="kpi-card kpi-primary accent-danger" title="At-Risk Revenue: Total revenue currently at risk from funnel drop-offs">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--danger-light);color:var(--danger)"><i class="fas fa-shield-alt"></i></div>
+          </div>
+          <div class="kpi-value" id="kpiAtRisk">$0</div>
+          <div class="kpi-label">Revenue at Risk</div>
+          <div class="kpi-trend down" id="kpiAtRiskTrend"><i class="fas fa-exclamation-triangle"></i> recovery opportunity available</div>
+        </div>
+      </section>
+
+      <!-- ROW 1B: Secondary Executive KPIs -->
+      <section class="kpi-row-secondary">
+        <div class="kpi-card kpi-secondary" title="Conversion Rate: Percentage of visitors who completed purchase. Formula: (Purchases / Visitors) × 100">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--primary-light);color:var(--primary)"><i class="fas fa-percentage"></i></div>
+            <div class="kpi-sparkline"><canvas id="sparkConv"></canvas></div>
+          </div>
+          <div class="kpi-value" id="kpiConv">0%</div>
+          <div class="kpi-label">Conversion Rate</div>
+          <div class="kpi-trend up" id="kpiConvTrend"><i class="fas fa-arrow-up"></i> vs target</div>
+        </div>
+        <div class="kpi-card kpi-secondary" title="Retention Rate: Percentage of customers who return after first purchase. Formula: (Returned Customers / Total Customers) × 100">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--purple-light);color:var(--purple)"><i class="fas fa-heart"></i></div>
+            <div class="kpi-sparkline"><canvas id="sparkRet"></canvas></div>
+          </div>
+          <div class="kpi-value" id="kpiRetention">0%</div>
+          <div class="kpi-label">Retention Rate</div>
+          <div class="kpi-trend down" id="kpiRetTrend"><i class="fas fa-arrow-down"></i> vs target</div>
+        </div>
+        <div class="kpi-card kpi-secondary" title="Total Visitors: Number of unique website visitors in the period">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--warning-light);color:var(--warning)"><i class="fas fa-user-friends"></i></div>
+            <div class="kpi-sparkline"><canvas id="sparkVisitors"></canvas></div>
+          </div>
+          <div class="kpi-value" id="kpiVisitors">0</div>
+          <div class="kpi-label">Visitors</div>
+          <div class="kpi-trend up" id="kpiVisitorTrend"><i class="fas fa-arrow-up"></i> total</div>
+        </div>
+        <div class="kpi-card kpi-secondary" title="Conversions: Number of completed purchases">
+          <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--primary-light);color:var(--primary)"><i class="fas fa-user-check"></i></div>
+            <div class="kpi-sparkline"><canvas id="sparkLeads"></canvas></div>
+          </div>
+          <div class="kpi-value" id="kpiLeads">0</div>
+          <div class="kpi-label">Conversions</div>
+          <div class="kpi-trend up" id="kpiConvCountTrend"><i class="fas fa-arrow-up"></i> total</div>
+        </div>
+      </section>
+
+      <!-- ROW 2: Executive Intelligence Command Center (Consolidated) -->
+      <section class="exec-intel-section">
+        <!-- Row 1: Executive Performance Snapshot (Full Width) -->
+        <div class="charts-row single-col">
+          <!-- Executive Performance Snapshot -->
+          <div class="chart-card overflow-visible">
+            <div class="chart-header">
+              <h3><i class="fas fa-crown"></i> Executive Performance Snapshot</h3>
+              <span class="chart-badge">Business Health &amp; Revenue Metrics</span>
+            </div>
+            <div class="exec-snapshot-panel">
+              <div class="snapshot-header-row">
+                <div class="bhs-mini-wrapper">
+                  <div class="bhs-mini">
+                    <span class="bhs-mini-score" id="bhsScore">0</span>
+                    <div class="bhs-mini-info">
+                      <span class="bhs-mini-label">BHS</span>
+                      <span class="bhs-mini-status" id="bhsStatus">Loading</span>
+                    </div>
+                    <svg width="44" height="44" viewBox="0 0 44 44" class="bhs-mini-gauge">
+                      <circle cx="22" cy="22" r="18" fill="none" stroke="#E2E8F0" stroke-width="4"/>
+                      <circle cx="22" cy="22" r="18" fill="none" stroke="url(#gaugeMiniGrad)" stroke-width="4"
+                        stroke-dasharray="113.1" stroke-dashoffset="56.5" stroke-linecap="round" transform="rotate(-90 22 22)"/>
+                    </svg>
+                    <!-- Tooltip breakdown -->
+                    <div class="bhs-composition" id="bhsComposition">
+                      <div class="bhs-comp-title">Business Health Score Breakdown</div>
+                      <div class="bhs-detail-items" id="bhsDetailItems"></div>
+                      <div class="bhs-comp-divider"></div>
+                      <div class="bhs-comp-item"><span class="bhs-comp-label">Revenue Performance</span><span class="bhs-comp-score" id="bhsCompRev">—</span></div>
+                      <div class="bhs-comp-item"><span class="bhs-comp-label">Conversion Performance</span><span class="bhs-comp-score" id="bhsCompConv">—</span></div>
+                      <div class="bhs-comp-item"><span class="bhs-comp-label">Retention Performance</span><span class="bhs-comp-score" id="bhsCompRet">—</span></div>
+                      <div class="bhs-comp-item"><span class="bhs-comp-label">ROI Performance</span><span class="bhs-comp-score" id="bhsCompRoi">—</span></div>
+                      <div class="bhs-comp-item"><span class="bhs-comp-label">Churn Risk</span><span class="bhs-comp-score" id="bhsCompChurn">—</span></div>
+                      <div class="bhs-comp-item final"><span class="bhs-comp-label">Final Score</span><span class="bhs-comp-score" id="bhsCompFinal">—</span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="snapshot-header-text">
+                  <div class="sht-title">Business Health Score</div>
+                  <div class="sht-desc">Weighted index of revenue, funnel conversion, retention, ROI, and churn risk.</div>
+                </div>
+              </div>
+
+              <!-- Snapshot Grid -->
+              <div class="snapshot-grid">
+                <div class="snapshot-item" title="Revenue Gap: Difference between target ($3,000) and actual revenue.">
+                  <span class="si-label"><i class="fas fa-exclamation-triangle" style="color:var(--danger)"></i> Revenue Gap</span>
+                  <span class="si-value negative" id="execRevenueGap">-$871</span>
+                </div>
+                <div class="snapshot-item" title="Revenue at Risk: Total revenue currently lost at funnel drop-off points.">
+                  <span class="si-label"><i class="fas fa-shield-alt" style="color:var(--danger)"></i> Revenue at Risk</span>
+                  <span class="si-value negative" id="execRevAtRisk">$2,871</span>
+                </div>
+                <div class="snapshot-item" title="Recovery Opportunity: Estimated revenue recoverable through immediate optimization.">
+                  <span class="si-label"><i class="fas fa-medal" style="color:var(--success)"></i> Recovery Opportunity</span>
+                  <span class="si-value positive" id="execRecoveryOpp">$718–$861</span>
+                </div>
+                <div class="snapshot-item full-width" title="Priority Recommended Action Plan">
+                  <span class="si-label"><i class="fas fa-arrow-circle-right" style="color:var(--primary)"></i> Priority Action</span>
+                  <span class="si-value action" id="execRecAction">Optimize Checkout &amp; Cart</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Integrated Executive Briefing (Full Width) -->
+        <div class="charts-row single-col">
+          <!-- Integrated Executive Briefing -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3><i class="fas fa-brain"></i> Integrated Executive Briefing</h3>
+              <span class="chart-badge">What · Why · Impact · Action</span>
+            </div>
+            <div class="insights-panel" id="insightsPanel">
+              <div class="insight-loading">Generating intelligence...</div>
+            </div>
+          </div>
+        </div>
+        <!-- Supporting Analysis Row (Pushed below first fold) -->
+        <div class="charts-row two-col">
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3><i class="fas fa-th-large"></i> Executive Risk &amp; Opportunity Matrix</h3>
+              <span class="chart-badge">Risk · Opportunity · Severity · Score</span>
+            </div>
+            <div class="risk-matrix" id="riskMatrixPanel">
+              <div class="insight-loading">Analyzing risks and opportunities...</div>
+            </div>
+          </div>
+          <div class="chart-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="chart-header" style="border-bottom: 1px solid var(--border);">
+                <h3><i class="fas fa-chart-line"></i> Revenue Waterfall Summary</h3>
+                <span class="chart-badge">Revenue Milestones</span>
+              </div>
+              <div class="revenue-waterfall-section" id="revenueWaterfallSection" style="margin-top: 10px; padding: 0 14px;"></div>
+            </div>
+            <div class="final-exec-recommendation" id="finalExecRecommendation" style="margin: 10px 14px 14px;"></div>
+          </div>
+        </div>
+
+        <!-- Hidden container to store unused metrics elements and prevent JS errors -->
+        <div style="display:none">
+          <span id="targetRevenue"></span>
+          <span id="targetGap"></span>
+          <span id="targetForecast"></span>
+          <span id="targetAtRisk"></span>
+          <span id="targetRecovery"></span>
+          <span id="execRevenueStatus"></span>
+          <span id="execRevenueAchievement"></span>
+          <span id="execBiggestLeak"></span>
+          <span id="execTopChannel"></span>
+          <span id="execTopChannelBasis"></span>
+          <span id="execTopSegment"></span>
+          <span id="execTopSegmentBasis"></span>
+        </div>
+      </section>
+
+      <!-- ROW 4: Revenue Leakage & Recovery Intelligence -->
+      <section class="funnel-intel-section">
+        <div class="funnel-summary-banner" id="funnelSummaryBanner"></div>
+
+        <!-- Row 1: Funnel Chart | Largest Leakage + Health Score | Recovery Ranking -->
+        <div class="funnel-grid-row1">
+          <div class="chart-card funnel-chart-col">
+            <div class="chart-header">
+              <h3><i class="fas fa-filter"></i> Revenue Leakage &amp; Recovery Intelligence</h3>
+              <span class="chart-badge">Identify · Measure · Recover · Act</span>
+            </div>
+            <div class="chart-container" style="height:200px"><canvas id="funnelChart"></canvas></div>
+          </div>
+          <div class="largest-leakage-card" id="largestLeakageCard"></div>
+          <div class="recovery-ranking-card" id="recoveryRankingCard"></div>
+        </div>
+
+        <!-- Row 2: Simplified Funnel Table | Executive Interpretation | Recovery Roadmap -->
+        <div class="funnel-grid-row2">
+          <div class="funnel-table-col">
+            <div class="fi-header header-critical"><i class="fas fa-circle-exclamation"></i> Funnel Analysis: Stage-by-Stage Breakdown</div>
+            <div class="revenue-funnel">
+              <table class="revenue-funnel-table">
+                <thead>
+                  <tr>
+                    <th>Stage</th><th>Users</th><th>Drop-off %</th>
+                    <th>Revenue Lost</th><th>Recovery</th>
+                    <th>Severity</th><th>Owner</th>
+                  </tr>
+                </thead>
+                <tbody id="funnelTableBody">
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="fi-card-wrap">
+            <div class="fi-header header-insight"><i class="fas fa-lightbulb"></i> Executive Interpretation</div>
+            <div class="funnel-interpretation-card" id="funnelInterpretationCard"></div>
+          </div>
+          <div class="fi-card-wrap">
+            <div class="fi-header header-growth"><i class="fas fa-road"></i> Revenue Recovery Roadmap</div>
+            <div class="recovery-roadmap-card" id="recoveryRoadmapCard"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ROW 5: Revenue Growth Intelligence - Channel / Region / Customer Health -->
+      <section class="charts-row three-col">
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3><i class="fas fa-bullhorn"></i> Channel Performance</h3>
+            <span class="chart-badge">Efficiency · Revenue · Recommended Action</span>
+          </div>
+          <div class="channel-summary-banner" id="channelSummaryBanner"></div>
+          <div class="chart-container"><canvas id="channelChart"></canvas></div>
+          <div class="channel-metrics" id="channelMetrics">
+            <div class="channel-metrics-header">
+              <span class="cm-col">Channel</span>
+              <span class="cm-col">Revenue</span>
+              <span class="cm-col">Visitors</span>
+              <span class="cm-col">Conv%</span>
+              <span class="cm-col">AOV</span>
+              <span class="cm-col">Score</span>
+              <span class="cm-col">Rec. Action</span>
+            </div>
+            <div id="channelMetricsBody"></div>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3><i class="fas fa-map-marker-alt"></i> Regional Performance</h3>
+            <span class="chart-badge">Revenue · Growth · Priority</span>
+          </div>
+          <div class="regional-opportunity-summary" id="regionalOpportunitySummary"></div>
+          <div class="region-ranking" id="regionRanking">
+            <div class="region-ranking-header">
+              <span class="rr-col rank">#</span>
+              <span class="rr-col region">Region</span>
+              <span class="rr-col revenue">Revenue</span>
+              <span class="rr-col conv">Conv</span>
+              <span class="rr-col contrib">Contrib</span>
+              <span class="rr-col action">Action</span>
+            </div>
+            <div id="regionRankingBody"></div>
+          </div>
+          <div class="concentration-risk" id="concentrationRisk"></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3><i class="fas fa-heartbeat"></i> Customer Health</h3>
+            <span class="chart-badge" id="healthBadge">Health · Risk · Opportunity</span>
+          </div>
+          <div class="customer-health-score" id="customerHealthScore"></div>
+          <div class="health-stacked-bar" id="healthStackedBar"></div>
+          <div class="customer-risk-assessment" id="customerRiskAssessment"></div>
+          <div class="customer-recovery-card" id="customerRecoveryCard"></div>
+          <div class="health-grid" id="healthGrid"></div>
+        </div>
+
+      </section>
+
+
+
+      <!-- ROW 6: Customer Intelligence, Forecasting & Executive Metrics -->
+      <section class="charts-row three-col">
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3><i class="fas fa-layer-group"></i> Customer Segment Intelligence</h3>
+            <span class="chart-badge">Revenue contribution, customer value, conversion & growth opportunities</span>
+          </div>
+          <div class="segment-insight-banner" id="segmentInsightBanner"></div>
+          <div class="chart-container"><canvas id="segmentChart"></canvas></div>
+          <div class="segment-metrics" id="segmentMetrics">
+            <div class="segment-metrics-header">
+              <span class="sm-col">Segment</span>
+              <span class="sm-col">Revenue</span>
+              <span class="sm-col">Contrib</span>
+              <span class="sm-col">CLV</span>
+              <span class="sm-col">Conv</span>
+              <span class="sm-col">Score</span>
+            </div>
+            <div id="segmentMetricsBody"></div>
+          </div>
+          <div class="segment-recommendation-card" id="segmentRecommendationCard"></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3><i class="fas fa-chart-line"></i> Forecasting & Outlook</h3>
+            <span class="chart-badge">Future Revenue & Growth</span>
+          </div>
+          <div class="forecast-trend-vis" id="forecastTrendVis">
+            <canvas id="forecastSparkline"></canvas>
+          </div>
+          <div class="forecast-outlook" id="forecastOutlook"></div>
+          <div class="forecast-confidence-meter" id="forecastConfidenceMeter"></div>
+          <div class="forecast-outcome-card" id="forecastOutcomeCard"></div>
+          <div class="forecast-drivers" id="forecastDrivers"></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3><i class="fas fa-calculator"></i> Executive Metrics</h3>
+            <span class="chart-badge">KPI Health & Performance</span>
+          </div>
+          <div class="kpi-hierarchy" id="kpiHierarchy"></div>
+          <div class="executive-insight-footer" id="execInsightFooter"></div>
+        </div>
+
+      </section>
+
+      <!-- ROW 7: Executive Action Roadmap -->
+      <section class="charts-row single-col">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3><i class="fas fa-road"></i> Executive Action Roadmap</h3>
+            <span class="chart-badge">P1 Critical &bull; P2 Important &bull; P3 Growth</span>
+          </div>
+          <div class="exec-summary-strip" id="execSummaryStrip"></div>
+          <div class="rec-priorities" id="recPriorities"></div>
+        </div>
+      </section>
+
+      <!-- ROW 8: Customer Segment Opportunity Matrix -->
+      <section class="charts-row single-col">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3><i class="fas fa-th"></i> Customer Segment Opportunity Matrix</h3>
+            <span class="chart-badge">Segment &bull; Revenue &bull; Conversion &bull; CLV &bull; Opportunity</span>
+          </div>
+          <div class="segment-matrix-container" id="segmentMatrixContainer">
+            <div class="matrix-loading">Building opportunity matrix...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="dashboard-footer">
+        <div class="footer-content">
+          <span class="footer-title">Executive Customer Journey Intelligence Platform</span>
+          <span class="footer-built">Built by Girish Shenoy</span>
+          <span class="footer-tags">Business Analytics &bull; Product Analytics &bull; Executive Reporting &bull; Decision Intelligence</span>
+          <span class="footer-portfolio">Portfolio Demonstration Project</span>
+          <span class="footer-meta">Dataset: Simulated Enterprise Customer Journey Dataset</span>
+        </div>
+      </footer>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

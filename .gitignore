@@ -1,0 +1,33 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Excel
+*.xlsx~
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+.opencode/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Project specific
+# (Keep screenshots folder tracked for the GitHub README preview)
+

@@ -1,0 +1,2662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Executive Customer Journey Intelligence Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+:root {
+  --bg: #F1F5F9;
+  --card: #FFFFFF;
+  --border: #E2E8F0;
+  --text: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --primary: #2563EB;
+  --primary-dark: #1D4ED8;
+  --success: #16A34A;
+  --warning: #F59E0B;
+  --danger: #DC2626;
+  --info: #0EA5E9;
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --shadow: 0 10px 15px -3px rgba(15,23,42,0.08), 0 4px 6px -2px rgba(15,23,42,0.03);
+  --shadow-lg: 0 20px 25px -5px rgba(15,23,42,0.1), 0 10px 10px -5px rgba(15,23,42,0.04);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-xs: 6px;
+  --sidebar-w: 220px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  font-family: var(--font-body);
+  color: var(--text);
+  line-height: 1.7;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* === HEADER ACTIONS BAR === */
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  margin-bottom: 4px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.header-titles h1 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
+}
+.header-titles .subtitle {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin: 2px 0 0 0;
+}
+.header-meta {
+  display: flex;
+  gap: 10px;
+}
+.meta-btn {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: var(--radius-xs);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, transform 0.1s;
+  font-family: var(--font-body);
+}
+.meta-btn:hover {
+  background: var(--bg);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+.meta-btn:active {
+  transform: translateY(0);
+}
+.meta-btn .meta-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 1px;
+  letter-spacing: 0.4px;
+}
+.meta-btn .meta-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* === COVER PAGE === */
+.cover-page {
+  position: relative;
+  min-height: 62vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+  margin-bottom: 16px;
+  border-radius: 0 0 20px 20px;
+  overflow: hidden;
+}
+.cover-page::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -30%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.cover-page::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(22,163,74,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.cover-content {
+  text-align: center;
+  z-index: 1;
+  max-width: 800px;
+  padding: 24px 20px;
+}
+.cover-badge {
+  display: inline-block;
+  padding: 5px 16px;
+  border-radius: 20px;
+  background: rgba(37,99,235,0.2);
+  border: 1px solid rgba(37,99,235,0.3);
+  color: #93C5FD;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.cover-content h1 {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+.cover-content .cover-sub {
+  font-size: 16px;
+  color: #94A3B8;
+  margin-bottom: 16px;
+  font-weight: 300;
+}
+.cover-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.cover-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748B;
+  font-size: 13px;
+}
+.cover-meta-item i { color: var(--primary); width: 16px; text-align: center; }
+.cover-meta-item strong { color: #CBD5E1; font-weight: 600; }
+.cover-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.cover-cta:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.cover-scroll {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #64748B;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  animation: bounceDown 2s infinite;
+}
+@keyframes bounceDown {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* === REPORT META BAR === */
+.report-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 28px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+.meta-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.meta-chip i { color: var(--primary); width: 14px; font-size: 12px; }
+.meta-chip strong { color: var(--text); font-weight: 600; }
+
+/* === LAYOUT === */
+.report-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* === EXECUTIVE NAV SIDEBAR === */
+.exec-nav {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 0;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+.exec-nav-header {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 0 18px 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.exec-nav-list {
+  list-style: none;
+  padding: 0;
+}
+.exec-nav-list li { margin: 0; }
+.exec-nav-list a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  border-left: 3px solid transparent;
+}
+.exec-nav-list a:hover {
+  background: var(--bg);
+  color: var(--primary);
+}
+.exec-nav-list a.active {
+  background: rgba(37,99,235,0.06);
+  color: var(--primary);
+  font-weight: 600;
+  border-left-color: var(--primary);
+}
+.exec-nav-list a .nav-icon { font-size: 14px; width: 20px; text-align: center; }
+
+/* === MAIN CONTENT === */
+.report-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* === SECTION WRAPPERS === */
+.section-block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 40px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  scroll-margin-top: 24px;
+}
+.section-block:last-child { margin-bottom: 0; }
+
+/* === CATEGORY BADGES === */
+.cat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 12px;
+}
+.cat-risk { background: #FEE2E2; color: #991B1B; }
+.cat-opportunity { background: #FEF3C7; color: #92400E; }
+.cat-high-roi { background: #DCFCE7; color: #166534; }
+.cat-forecast { background: #DBEAFE; color: #1E40AF; }
+.cat-appendix { background: #F1F5F9; color: #475569; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.section-header h2 {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0;
+}
+
+/* === EXECUTIVE VERDICT === */
+.exec-verdict {
+  background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+  border: 1px solid #F59E0B;
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.exec-verdict .ev-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.exec-verdict .ev-content { flex: 1; }
+.exec-verdict .ev-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #92400E;
+  margin-bottom: 4px;
+}
+.exec-verdict .ev-text {
+  font-size: 12px;
+  color: #78350F;
+  line-height: 1.6;
+}
+.exec-verdict .ev-text strong { color: #451A03; }
+
+/* === EXECUTIVE SUMMARY BANNER === */
+.exec-banner {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #1E40AF 100%);
+  border-radius: var(--radius);
+  padding: 32px 36px;
+  margin-bottom: 0;
+  position: relative;
+  overflow: hidden;
+}
+.exec-banner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.exec-banner-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+.exec-banner-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+.exec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.exec-card {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  transition: background 0.2s, transform 0.15s;
+}
+.exec-card:hover {
+  background: rgba(255,255,255,0.18);
+  transform: translateY(-1px);
+}
+.exec-card .ec-icon {
+  font-size: 16px;
+  margin-bottom: 6px;
+  opacity: 0.8;
+}
+.exec-card .ec-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.exec-card .ec-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  margin: 2px 0;
+}
+.exec-card .ec-note {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+}
+.exec-card .ec-action {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 4px;
+}
+
+/* === REVENUE OPPORTUNITY PIPELINE === */
+.opp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.opp-header h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+.opp-total {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.opp-total strong { color: var(--success); font-weight: 700; }
+.opp-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+.opp-row:last-child { border-bottom: none; }
+.opp-row:hover { background: var(--bg); }
+.opp-rank { font-size: 11px; font-weight: 700; color: var(--text-muted); width: 20px; }
+.opp-label { font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.2px; white-space: nowrap; flex-shrink: 0; }
+.opp-label.highest-roi { background: #DCFCE7; color: #166534; }
+.opp-label.fastest-win { background: #DBEAFE; color: #1E40AF; }
+.opp-label.strategic { background: #FEF3C7; color: #92400E; }
+.opp-label.long-term { background: #F3E8FF; color: #6B21A8; }
+.opp-name { flex: 1; font-size: 13px; font-weight: 600; color: var(--text); }
+.opp-impact { text-align: right; font-size: 12px; color: var(--text-secondary); }
+.opp-impact strong { color: var(--text); font-weight: 700; }
+.opp-bar-wrap { width: 120px; flex-shrink: 0; }
+.opp-bar {
+  height: 6px;
+  background: var(--bg);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.opp-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+.opp-bar-fill.high { background: linear-gradient(90deg, var(--success), #22C55E); }
+.opp-bar-fill.medium { background: linear-gradient(90deg, var(--warning), #FBBF24); }
+.opp-bar-fill.low { background: linear-gradient(90deg, var(--primary), #60A5FA); }
+.opp-status { font-size: 16px; flex-shrink: 0; }
+
+/* === SNAPSHOT GRID === */
+.snapshot-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+.snapshot-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: center;
+}
+.snapshot-card .snap-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 8px;
+}
+.snapshot-card canvas {
+  width: 100%;
+  height: 120px;
+  display: block;
+}
+
+/* === MARKDOWN BODY STYLES === */
+.markdown-body h1 {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--primary);
+  color: var(--text);
+}
+.markdown-body h2 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  margin: 24px 0 12px;
+  color: var(--text);
+  scroll-margin-top: 100px;
+}
+.markdown-body h3 {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  margin: 18px 0 8px;
+  color: var(--text);
+}
+.markdown-body p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0 0 12px;
+  line-height: 1.7;
+}
+.markdown-body p strong { color: var(--text); }
+.markdown-body hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 20px 0;
+}
+.markdown-body ul, .markdown-body ol {
+  margin: 0 0 12px;
+  padding-left: 18px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.markdown-body ul li, .markdown-body ol li { margin-bottom: 4px; }
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 16px;
+  font-size: 12px;
+}
+.markdown-body th {
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 600;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.markdown-body td {
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.markdown-body tr:nth-child(even) { background: rgba(241,245,249,0.3); }
+.text-center { text-align: center; }
+.error-message {
+  background: rgba(220,38,38,0.06);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  padding: 20px;
+  border-radius: var(--radius-xs);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* === RECOMMENDATION CARDS (EXECUTIVE) === */
+.rec-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin: 16px 0;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.rec-card:hover { box-shadow: 0 4px 12px rgba(15,23,42,0.06); }
+.rec-card.rec-high { border-left: 4px solid var(--danger); }
+.rec-card.rec-medium { border-left: 4px solid var(--warning); }
+.rec-card.rec-low { border-left: 4px solid var(--primary); }
+.rec-summary {
+  padding: 16px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: background 0.15s;
+}
+.rec-summary:hover { background: rgba(241,245,249,0.5); }
+.rec-indicator {
+  width: 6px;
+  flex-shrink: 0;
+  align-self: stretch;
+  border-radius: 3px;
+}
+.rec-high .rec-indicator { background: var(--danger); }
+.rec-medium .rec-indicator { background: var(--warning); }
+.rec-low .rec-indicator { background: var(--primary); }
+.rec-summary-main { flex: 1; min-width: 0; }
+.rec-summary-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.rec-priority-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.badge-high-impact { background: #FEE2E2; color: #991B1B; }
+.badge-medium-impact { background: #FEF3C7; color: #92400E; }
+.badge-low-impact { background: #DBEAFE; color: #1E40AF; }
+.rec-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+.rec-meta-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+.rec-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--bg);
+  color: var(--text-secondary);
+}
+.rec-chip i { font-size: 9px; }
+.rec-chip.rc-revenue { background: #DCFCE7; color: #166534; }
+.rec-chip.rc-confidence { background: #DBEAFE; color: #1E40AF; }
+.rec-chip.rc-timeline { background: #FEF3C7; color: #92400E; }
+.rec-chip.rc-owner { background: #F3E8FF; color: #6B21A8; }
+.rec-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+  padding: 2px 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  transition: color 0.15s;
+}
+.rec-toggle:hover { color: var(--primary-dark); }
+.rec-toggle i { font-size: 10px; transition: transform 0.2s; }
+.rec-toggle.open i { transform: rotate(180deg); }
+.rec-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.rec-details.open { max-height: 2000px; }
+.rec-details-inner {
+  padding: 0 20px 16px;
+  border-top: 1px solid var(--border);
+}
+.rec-details-inner .markdown-body { margin-top: 12px; }
+.rec-details-inner table { margin-bottom: 10px !important; }
+.rec-details-inner p:last-child { margin-bottom: 0 !important; }
+
+/* === ENHANCED IMPACT TABLE === */
+.impact-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0; }
+.impact-table th {
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 600;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  text-align: left;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.impact-table td {
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.impact-table tr:nth-child(even) { background: rgba(241,245,249,0.3); }
+.impact-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bg);
+  overflow: hidden;
+  min-width: 80px;
+}
+.impact-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+.stars { color: var(--warning); font-size: 11px; letter-spacing: 1px; }
+.stars .empty { color: #E2E8F0; }
+.roi-badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.roi-high { background: #DCFCE7; color: #166534; }
+.roi-medium { background: #FEF3C7; color: #92400E; }
+.roi-low { background: #FEE2E2; color: #991B1B; }
+.biz-impact { font-size: 12px; font-weight: 600; }
+
+/* === KPI TARGETS TABLE === */
+.kpi-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0; }
+.kpi-table th {
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 600;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.kpi-table td {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.kpi-table tr:nth-child(even) { background: rgba(241,245,249,0.3); }
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+.status-on-track { background: #DCFCE7; color: #166534; }
+.status-monitor { background: #FEF3C7; color: #92400E; }
+.status-attention { background: #FEE2E2; color: #991B1B; }
+.trend-up { color: var(--success); }
+.trend-down { color: var(--danger); }
+.trend-stable { color: var(--text-muted); }
+.gap-value { font-weight: 600; }
+.gap-high { color: var(--danger); }
+.gap-medium { color: var(--warning); }
+.gap-low { color: var(--success); }
+
+/* === EXECUTIVE CONCLUSION === */
+.conclusion-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+.conclusion-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+.conclusion-card h4 {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.conclusion-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.conclusion-card ul li {
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.conclusion-card ul li:last-child { border-bottom: none; }
+.conclusion-card ul li .prio-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.conclusion-highlight {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, var(--primary-dark), #1E40AF);
+  color: #fff;
+  border: none;
+}
+.conclusion-highlight h4 { color: #fff; }
+.conclusion-highlight ul li { color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.15); }
+.conclusion-highlight .prio-num { background: rgba(255,255,255,0.2); }
+
+/* === REVENUE LEAKAGE & RECOVERY INTELLIGENCE === */
+.rl-grid {
+  display: grid;
+  gap: 14px;
+}
+.rl-summary-banner {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 14px;
+}
+.rl-summary-banner-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.rl-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.rl-summary-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.rl-sc-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.rl-sc-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+.rl-sc-value.text-danger { color: var(--danger); }
+.rl-sc-value.text-success { color: var(--success); }
+.rl-sc-value.text-primary { color: var(--primary); }
+.rl-sc-value.text-warning { color: var(--warning); }
+
+.rl-full-width {
+  width: 100%;
+  margin-bottom: 14px;
+}
+.rl-details-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr; /* 60% / 40% */
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.rl-bn-criticality {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(220, 38, 38, 0.04);
+  border: 1px solid rgba(220, 38, 38, 0.15);
+  border-left: 3px solid var(--danger);
+  padding: 8px 12px;
+  border-radius: var(--radius-xs);
+  margin-top: 12px;
+}
+.rl-bn-crit-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--danger);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.rl-bn-crit-value {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--danger);
+}
+.rl-bn-crit-level {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Table column width tweaks */
+.rl-table th:nth-child(1), .rl-table td:nth-child(1) { width: 22%; }
+.rl-table th:nth-child(2), .rl-table td:nth-child(2) { width: 12%; }
+.rl-table th:nth-child(3), .rl-table td:nth-child(3) { width: 12%; }
+.rl-table th:nth-child(4), .rl-table td:nth-child(4) { width: 12%; }
+.rl-table th:nth-child(5), .rl-table td:nth-child(5) { width: 10%; }
+.rl-table th:nth-child(6), .rl-table td:nth-child(6) { width: 16%; }
+.rl-table th:nth-child(7), .rl-table td:nth-child(7) { width: 16%; }
+
+.rl-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+.rl-card-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.rl-card canvas { width: 100%; height: 130px; display: block; }
+
+/* Largest Revenue Leakage */
+.rl-leakage-stage {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--danger);
+  margin-bottom: 4px;
+}
+.rl-leakage-pct {
+  font-size: 14px;
+  font-weight: 700;
+  color: #991B1B;
+  margin-bottom: 10px;
+}
+.rl-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.rl-metric-row strong { color: var(--text); font-weight: 700; }
+
+/* Health Score */
+.rl-health-score {
+  margin-top: 12px;
+  padding: 12px;
+  background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+  border-radius: var(--radius-xs);
+  text-align: center;
+  border: 1px solid rgba(220,38,38,0.2);
+}
+.rl-health-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: #991B1B;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.rl-health-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: #DC2626;
+  line-height: 1.2;
+  margin: 2px 0;
+}
+.rl-health-total {
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.5;
+}
+.rl-health-status {
+  font-size: 11px;
+  font-weight: 700;
+  color: #991B1B;
+  text-transform: uppercase;
+}
+
+/* Ranking */
+.rl-rank-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.rl-rank-row:last-child { border-bottom: none; }
+.rl-rank-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  width: 22px;
+  flex-shrink: 0;
+}
+.rl-rank-row span:nth-child(2) { flex: 1; font-weight: 600; color: var(--text); }
+.rl-rank-recovery { font-weight: 700; color: var(--success); white-space: nowrap; }
+.rl-rank-tag {
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+/* Funnel Analysis Table */
+.rl-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.rl-table th {
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 600;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  text-align: left;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.rl-table td {
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+.rl-table tr:nth-child(even) { background: rgba(241,245,249,0.3); }
+.rl-severity {
+  font-size: 8px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+.rl-sev-critical { background: #FEE2E2; color: #991B1B; }
+.rl-sev-warning { background: #FEF3C7; color: #92400E; }
+.rl-sev-low { background: #DCFCE7; color: #166534; }
+
+/* Executive Insight Card */
+.rl-insight-card { background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border-color: #93C5FD; }
+.rl-insight-card .rl-card-title { color: #1E40AF; border-color: rgba(37,99,235,0.15); }
+.rl-insight {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.rl-insight-kpi {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: rgba(255,255,255,0.7);
+  border-radius: var(--radius-xs);
+}
+.rl-insight-pct {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary);
+  white-space: nowrap;
+  min-width: 60px;
+}
+.rl-insight-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.rl-insight-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 6px 10px;
+  background: rgba(37,99,235,0.08);
+  border-radius: var(--radius-xs);
+  color: #1E40AF;
+  text-align: center;
+}
+
+/* Revenue Recovery Roadmap - KPI Card Styling */
+.rl-roadmap-kpis {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rl-roadmap-kpi-card {
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.rl-roadmap-kpi-card.p1 {
+  background: rgba(239, 68, 68, 0.03);
+  border-color: rgba(239, 68, 68, 0.15);
+}
+.rl-roadmap-kpi-card.p2 {
+  background: rgba(245, 158, 11, 0.03);
+  border-color: rgba(245, 158, 11, 0.15);
+}
+.rl-roadmap-kpi-card.p3 {
+  background: rgba(59, 130, 246, 0.03);
+  border-color: rgba(59, 130, 246, 0.15);
+}
+.rl-rk-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.rl-rk-prio {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: white;
+  text-transform: uppercase;
+}
+.rl-roadmap-kpi-card.p1 .rl-rk-prio { background: #EF4444; }
+.rl-roadmap-kpi-card.p2 .rl-rk-prio { background: #F59E0B; }
+.rl-roadmap-kpi-card.p3 .rl-rk-prio { background: #3B82F6; }
+.rl-rk-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--text);
+}
+.rl-rk-body {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 2px;
+}
+.rl-rk-metric {
+  font-size: 10.5px;
+  color: var(--text-secondary);
+}
+.rl-rk-metric span {
+  color: var(--text-muted);
+}
+.rl-rk-metric strong.priority-critical { color: #EF4444; }
+.rl-rk-metric strong.priority-high { color: #F59E0B; }
+.rl-rk-metric strong.priority-medium { color: #3B82F6; }
+
+/* Table Priority Badges */
+.rl-prio-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  font-weight: 700;
+  font-size: 10px;
+  border-radius: 4px;
+  text-align: center;
+}
+.rl-prio-badge.p1 { background: #FEE2E2; color: #DC2626; }
+.rl-prio-badge.p2 { background: #FEF3C7; color: #D97706; }
+.rl-prio-badge.p3 { background: #DBEAFE; color: #2563EB; }
+
+/* Primary Bottleneck Card Styling */
+.rl-bottleneck-narrative {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px;
+}
+.rl-bn-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.rl-bn-subtitle {
+  font-size: 9px;
+  font-weight: 700;
+  color: #1D4ED8;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.rl-bn-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #1E3A8A;
+}
+.rl-bn-hero {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.75);
+  border-radius: 6px;
+  border: 1px solid rgba(147, 197, 253, 0.35);
+}
+.rl-bn-stat {
+  font-size: 26px;
+  font-weight: 900;
+  color: #DC2626;
+  line-height: 1;
+}
+.rl-bn-stat-desc {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.rl-bn-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.rl-bn-metric {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  padding-bottom: 4px;
+  border-bottom: 1px dashed rgba(147, 197, 253, 0.25);
+}
+.rl-bn-metric:last-child {
+  border-bottom: none;
+}
+.rl-bn-metric.highlighted {
+  border-bottom: none;
+  background: rgba(22, 163, 74, 0.08);
+  padding: 6px 8px;
+  border-radius: 4px;
+  color: #166534;
+}
+
+/* Executive Recovery Summary Strip */
+.rl-recovery-summary-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+  padding: 10px 12px;
+  background: linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 100%);
+  color: white;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.rl-rss-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.rl-rss-label {
+  font-size: 8px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 2px;
+}
+.rl-rss-value {
+  font-size: 13.5px;
+  font-weight: 800;
+}
+.rl-rss-value.lost { color: #FECACA; }
+.rl-rss-value.recovery { color: #BBF7D0; }
+.rl-rss-value.rate { color: #DBEAFE; }
+.rl-rss-value.bottleneck { color: white; }
+.rl-rss-value.action { color: #FEF3C7; font-size: 12px; font-weight: 700; }
+
+
+/* === REPORT FOOTER === */
+.report-footer {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+  text-align: center;
+}
+.footer-title {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.footer-author {
+  font-size: 13px;
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.footer-tags {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.footer-tags span { padding: 0 8px; border-right: 1px solid var(--border); }
+.footer-tags span:last-child { border-right: none; }
+.footer-divider {
+  width: 40px;
+  height: 2px;
+  background: var(--primary);
+  margin: 8px auto;
+  border-radius: 1px;
+}
+.footer-legal {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* === SCROLL TO TOP === */
+.scroll-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  color: var(--text-secondary);
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s, transform 0.1s;
+  z-index: 100;
+}
+.scroll-top.visible { opacity: 1; visibility: visible; }
+.scroll-top:hover { transform: translateY(-2px); color: var(--primary); }
+
+/* === RESPONSIVE === */
+@media (max-width: 1100px) {
+  .snapshot-grid { grid-template-columns: repeat(2, 1fr); }
+  .conclusion-grid { grid-template-columns: 1fr; }
+  .rl-summary-grid { grid-template-columns: repeat(2, 1fr); }
+  .rl-details-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+  .exec-nav {
+    width: 100%;
+    position: static;
+    max-height: none;
+    margin-bottom: 16px;
+  }
+  .exec-nav-list { display: flex; flex-wrap: wrap; gap: 2px; }
+  .exec-nav-list a { padding: 8px 12px; font-size: 11px; border-left: none; border-bottom: 2px solid transparent; }
+  .exec-nav-list a.active { border-left-color: transparent; border-bottom-color: var(--primary); }
+  .exec-grid { grid-template-columns: repeat(2, 1fr); }
+  .report-layout { flex-direction: column; }
+  .cover-content h1 { font-size: 30px; }
+  .cover-content .cover-sub { font-size: 15px; }
+}
+@media (max-width: 640px) {
+  body { padding: 0; }
+  .container { padding: 0 10px; }
+  .header-actions { flex-direction: column; gap: 10px; align-items: stretch; }
+  .header-meta { justify-content: center; }
+  .meta-btn { align-items: center; }
+  .cover-content h1 { font-size: 24px; }
+  .cover-meta { flex-direction: column; align-items: center; gap: 10px; }
+  .exec-grid { grid-template-columns: 1fr; }
+  .exec-banner { padding: 20px; border-radius: var(--radius-sm); }
+  .section-block { padding: 20px 16px; border-radius: var(--radius-sm); }
+  .rl-summary-grid { grid-template-columns: 1fr; }
+  .rl-details-row { grid-template-columns: 1fr; }
+  .snapshot-grid { grid-template-columns: 1fr; }
+  .rec-summary { flex-direction: column; padding: 12px 14px; }
+  .rec-indicator { width: 100%; height: 3px; }
+  .report-meta { flex-direction: column; align-items: center; padding: 12px 16px; }
+  .report-footer { padding: 16px; }
+  .footer-tags { flex-direction: column; align-items: center; }
+  .footer-tags span { border-right: none; }
+  .opp-row { flex-wrap: wrap; }
+  .opp-bar-wrap { width: 80px; }
+}
+
+/* === ALERT BOX / CALLOUT STYLES === */
+.alert-box {
+  margin: 20px 0;
+  padding: 14px 18px;
+  border-radius: var(--radius-xs);
+  border-left: 4px solid var(--text-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.alert-box .alert-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.alert-box .alert-body p:last-child { margin-bottom: 0; }
+.alert-box .alert-body ul, .alert-box .alert-body ol { margin-bottom: 0; }
+.alert-important {
+  background: rgba(220,38,38,0.03);
+  border-color: #DC2626;
+  color: #991B1B;
+}
+.alert-important .alert-header { color: #DC2626; }
+.alert-note {
+  background: rgba(37,99,235,0.03);
+  border-color: #2563EB;
+  color: #1E40AF;
+}
+.alert-note .alert-header { color: #2563EB; }
+.alert-warning {
+  background: rgba(217,119,6,0.03);
+  border-color: #D97706;
+  color: #92400E;
+}
+.alert-warning .alert-header { color: #D97706; }
+.alert-tip {
+  background: rgba(5,150,105,0.03);
+  border-color: #059669;
+  color: #065F46;
+}
+.alert-tip .alert-header { color: #059669; }
+.alert-caution {
+  background: rgba(234,88,12,0.03);
+  border-color: #EA580C;
+  color: #9A3412;
+}
+.alert-caution .alert-header { color: #EA580C; }
+
+/* Improved markdown-body table, code */
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px;
+  font-size: 13px;
+}
+.markdown-body th {
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 600;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+.markdown-body td {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.markdown-body tr:nth-child(even) { background: rgba(241,245,249,0.5); }
+.markdown-body pre {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 16px;
+  overflow-x: auto;
+  margin: 16px 0 24px;
+}
+.markdown-body code {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+}
+
+/* === PRINT STYLES === */
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  .header-actions { display: none !important; }
+  .container { max-width: 100% !important; padding: 0 !important; }
+  .cover-page { min-height: auto !important; border-radius: 0 !important; margin-bottom: 20px !important; padding: 40px !important; }
+  .cover-scroll, .cover-cta { display: none !important; }
+  .exec-nav { display: none !important; }
+  .report-layout { display: block !important; }
+  .section-block { border: 1px solid #ddd !important; box-shadow: none !important; page-break-inside: avoid; }
+  .exec-banner { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .exec-card { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .rec-details { max-height: none !important; }
+  .rec-toggle { display: none !important; }
+  .rec-details-inner { border-top: none !important; }
+  .scroll-top { display: none !important; }
+  .snapshot-card canvas { max-width: 100%; }
+  .report-footer { border: 1px solid #ddd !important; }
+  .alert-box { page-break-inside: avoid; background: #F8FAFC !important; border-left-color: #64748B !important; color: #0F172A !important; }
+  .alert-box .alert-header { color: #0F172A !important; }
+  h1, h2, h3 { page-break-after: avoid; }
+  table { page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- HEADER ACTIONS -->
+<div class="header-actions">
+    <div class="header-meta">
+      <button class="meta-btn" onclick="window.close()">
+        <span class="meta-label">Close Preview</span>
+        <span class="meta-value"><i class="fa-solid fa-arrow-left"></i> Return</span>
+      </button>
+  </div>
+
+  <div class="header-titles">
+    <h1>Executive Customer Journey Intelligence</h1>
+    <p class="subtitle">Funnel Analysis &amp; Revenue Performance Dashboard</p>
+  </div>
+  <div class="header-meta">
+    <button class="meta-btn" onclick="window.print()">
+      <span class="meta-label">Print Report</span>
+      <span class="meta-value"><i class="fa-solid fa-print"></i> Print / PDF</span>
+    </button>
+  </div>
+</div>
+
+<!-- === COVER PAGE === -->
+<div class="cover-page" id="cover">
+  <div class="cover-content">
+    <div class="cover-badge">Executive Intelligence Report</div>
+    <h1>Customer Journey &amp; Funnel Analysis</h1>
+    <p class="cover-sub">Data-backed strategic recommendations to improve conversion, retention, and revenue performance</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><i class="fa-solid fa-calendar"></i> Generated: <strong id="cover-date"></strong></div>
+      <div class="cover-meta-item"><i class="fa-solid fa-clock"></i> Period: <strong>Q2–Q3 2024</strong></div>
+      <div class="cover-meta-item"><i class="fa-solid fa-database"></i> Dataset: <strong>120 customer journeys</strong></div>
+      <div class="cover-meta-item"><i class="fa-solid fa-code-branch"></i> Version: <strong>2.0</strong></div>
+      <div class="cover-meta-item"><i class="fa-solid fa-user-tie"></i> Prepared by: <strong>Girish Shenoy</strong></div>
+    </div>
+    <button class="cover-cta" onclick="document.getElementById('exec-summary').scrollIntoView({behavior:'smooth'})">
+      <i class="fa-solid fa-arrow-down"></i> Explore Report
+    </button>
+  </div>
+  <div class="cover-scroll">
+    <span>Scroll to explore</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</div>
+
+<!-- === REPORT METADATA === -->
+<div class="report-meta" id="meta-bar">
+  <div class="meta-chip"><i class="fa-solid fa-calendar"></i> Generated: <strong id="meta-date"></strong></div>
+  <div class="meta-chip"><i class="fa-solid fa-clock"></i> Period: <strong>Q2–Q3 2024</strong></div>
+  <div class="meta-chip"><i class="fa-solid fa-database"></i> Dataset: <strong>120 Customer Journeys</strong></div>
+  <div class="meta-chip"><i class="fa-solid fa-code-branch"></i> Version: <strong>2.0</strong></div>
+  <div class="meta-chip"><i class="fa-solid fa-user-tie"></i> Prepared by: <strong>Girish Shenoy</strong></div>
+  <div class="meta-chip"><i class="fa-solid fa-magnifying-glass-chart"></i> Scope: <strong>5 Stages, 6 Channels, 3 Segments</strong></div>
+</div>
+
+<!-- === TWO-COLUMN LAYOUT === -->
+<div class="report-layout">
+
+  <!-- EXECUTIVE NAV SIDEBAR -->
+  <nav class="exec-nav" id="exec-nav">
+    <div class="exec-nav-header">Executive Briefing</div>
+    <ul class="exec-nav-list">
+      <li><a href="#exec-summary" data-section="exec-summary"><span class="nav-icon">📊</span> Executive Summary</a></li>
+      <li><a href="#revenue-opportunity" data-section="revenue-opportunity"><span class="nav-icon">💰</span> Revenue Opportunity</a></li>
+      <li><a href="#revenue-leakage" data-section="revenue-leakage"><span class="nav-icon">⚠</span> Revenue Leakage</a></li>
+      <li><a href="#customer-health" data-section="customer-health"><span class="nav-icon">👥</span> Customer Health</a></li>
+      <li><a href="#growth-opportunities" data-section="growth-opportunities"><span class="nav-icon">📈</span> Growth Opportunities</a></li>
+      <li><a href="#recommendations" data-section="recommendations"><span class="nav-icon">🎯</span> Recommendations</a></li>
+      <li><a href="#forecast-outlook" data-section="forecast-outlook"><span class="nav-icon">🔮</span> Forecast &amp; Outlook</a></li>
+      <li><a href="#kpi-targets" data-section="kpi-targets"><span class="nav-icon">📋</span> KPI Targets</a></li>
+      <li><a href="#action-roadmap" data-section="action-roadmap"><span class="nav-icon">🚀</span> Action Roadmap</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="report-content">
+
+    <!-- SECTION: EXECUTIVE SUMMARY -->
+    <section class="section-block" id="exec-summary">
+      <div class="section-header">
+        <span class="cat-badge cat-forecast">🔵 Executive Overview</span>
+      </div>
+      <div class="section-header">
+        <h2>Executive Summary</h2>
+      </div>
+      <div class="exec-verdict">
+        <div class="ev-icon">🟡</div>
+        <div class="ev-content">
+          <div class="ev-title">Executive Verdict</div>
+          <div class="ev-text">
+            Business Health Score: <strong>68/100</strong> &middot;
+            Revenue is below target by <strong>$871</strong> &middot;
+            Primary issue: <strong>Add-to-Cart leakage (53.3% loss)</strong> &middot;
+            Estimated recoverable revenue: <strong>$1,519</strong> &middot;
+            Priority action: <strong>Optimize Checkout &amp; Cart Recovery</strong>
+          </div>
+        </div>
+      </div>
+      <div class="exec-banner">
+        <div class="exec-banner-title">Performance at a Glance</div>
+        <div class="exec-banner-sub">Analysis of 120 customer journeys · 5 funnel stages · 6 channels · 3 segments</div>
+        <div class="exec-grid">
+          <div class="exec-card">
+            <div class="ec-icon">📊</div>
+            <div class="ec-label">Revenue Achievement</div>
+            <div class="ec-value">112.6%</div>
+            <div class="ec-note">of $3,000 target · <strong style="color:#4ADE80;">▲ +12.6%</strong></div>
+          </div>
+          <div class="exec-card">
+            <div class="ec-icon">🏥</div>
+            <div class="ec-label">Business Health Score</div>
+            <div class="ec-value">68<span style="font-size:14px;font-weight:400;opacity:0.6;">/100</span></div>
+            <div class="ec-note">Composite weighted score · Moderate</div>
+          </div>
+          <div class="exec-card">
+            <div class="ec-icon">⚠</div>
+            <div class="ec-label">Revenue At Risk</div>
+            <div class="ec-value">$6,888</div>
+            <div class="ec-note">from churned + at-risk customers</div>
+          </div>
+          <div class="exec-card">
+            <div class="ec-icon">💵</div>
+            <div class="ec-label">Recovery Opportunity</div>
+            <div class="ec-value">$1,519</div>
+            <div class="ec-note">projected from recommended actions</div>
+          </div>
+          <div class="exec-card">
+            <div class="ec-icon">🔮</div>
+            <div class="ec-label">Forecast Outlook</div>
+            <div class="ec-value">20<span style="font-size:14px;font-weight:400;opacity:0.6;">–</span>22%</div>
+            <div class="ec-note">projected conversion rate (+30–40% lift)</div>
+          </div>
+          <div class="exec-card">
+            <div class="ec-icon">🎯</div>
+            <div class="ec-label">Priority Action</div>
+            <div class="ec-value" style="font-size:16px;margin-top:4px;"><span class="ec-action">🔴 #1 Fix Checkout Drop-off</span></div>
+            <div class="ec-note">51.3% checkout abandonment · Lead: Product + Engineering</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: REVENUE OPPORTUNITY PIPELINE -->
+    <section class="section-block" id="revenue-opportunity">
+      <div class="section-header">
+        <span class="cat-badge cat-high-roi">🟢 Revenue Opportunity</span>
+      </div>
+      <div class="section-header">
+        <h2>Revenue Opportunity Pipeline</h2>
+      </div>
+      <div class="opp-header">
+        <h3>Total Revenue Opportunity Pipeline</h3>
+        <div class="opp-total">Total Recoverable Revenue: <strong>$2,600 – $4,100</strong> · Projected Lift: <strong>+30–40%</strong></div>
+      </div>
+      <div id="opp-list">
+        <div class="opp-row">
+          <span class="opp-rank">#1</span>
+          <span class="opp-label fastest-win">⚡ Fastest Win</span>
+          <div class="opp-bar-wrap"><div class="opp-bar"><div class="opp-bar-fill high" style="width:100%"></div></div></div>
+          <span class="opp-name">Cart Abandonment Recovery</span>
+          <span class="opp-impact"><strong>$500–800</strong> · +6–8% conv.</span>
+          <span class="opp-status">🟢</span>
+        </div>
+        <div class="opp-row">
+          <span class="opp-rank">#2</span>
+          <span class="opp-label highest-roi">🏆 Highest ROI</span>
+          <div class="opp-bar-wrap"><div class="opp-bar"><div class="opp-bar-fill high" style="width:85%"></div></div></div>
+          <span class="opp-name">Checkout Optimization</span>
+          <span class="opp-impact"><strong>$400–600</strong> · +4–6% conv.</span>
+          <span class="opp-status">🟢</span>
+        </div>
+        <div class="opp-row">
+          <span class="opp-rank">#3</span>
+          <span class="opp-label strategic">📈 Strategic Growth</span>
+          <div class="opp-bar-wrap"><div class="opp-bar"><div class="opp-bar-fill high" style="width:90%"></div></div></div>
+          <span class="opp-name">Premium Segment Expansion</span>
+          <span class="opp-impact"><strong>$800–1,200</strong> · +2–3% conv.</span>
+          <span class="opp-status">🟢</span>
+        </div>
+        <div class="opp-row">
+          <span class="opp-rank">#4</span>
+          <span class="opp-label long-term">🎯 Long-Term Opp.</span>
+          <div class="opp-bar-wrap"><div class="opp-bar"><div class="opp-bar-fill medium" style="width:65%"></div></div></div>
+          <span class="opp-name">Referral Channel Expansion</span>
+          <span class="opp-impact"><strong>$300–500</strong> · +2–4% conv.</span>
+          <span class="opp-status">🟡</span>
+        </div>
+        <div class="opp-row">
+          <span class="opp-rank">#5</span>
+          <span class="opp-label strategic">📈 Strategic Growth</span>
+          <div class="opp-bar-wrap"><div class="opp-bar"><div class="opp-bar-fill high" style="width:80%"></div></div></div>
+          <span class="opp-name">Customer Retention Programs</span>
+          <span class="opp-impact"><strong>$600–1,000</strong> · +3–5% retention</span>
+          <span class="opp-status">🟢</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISUAL EXECUTIVE SNAPSHOTS (without funnel - moved to Revenue Leakage section) -->
+    <section class="section-block" id="visual-snapshots">
+      <div class="section-header">
+        <span class="cat-badge cat-forecast">🔵 Visual Intelligence</span>
+      </div>
+      <div class="section-header">
+        <h2>Executive Snapshots</h2>
+      </div>
+      <div class="snapshot-grid">
+        <div class="snapshot-card">
+          <div class="snap-title">Customer Health Distribution</div>
+          <canvas id="chart-health" height="120"></canvas>
+        </div>
+        <div class="snapshot-card">
+          <div class="snap-title">Forecast Outlook</div>
+          <canvas id="chart-forecast" height="120"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVENUE LEAKAGE & RECOVERY INTELLIGENCE -->
+    <section class="section-block" id="revenue-leakage">
+      <div class="section-header">
+        <span class="cat-badge cat-risk">🔴 Revenue Intelligence</span>
+      </div>
+      <div class="section-header">
+        <h2>Revenue Leakage &amp; Recovery Intelligence</h2>
+      </div>
+
+      <!-- 1. Revenue Leakage Summary Banner -->
+      <div class="rl-summary-banner">
+        <div class="rl-summary-banner-title">Revenue Leakage Summary</div>
+        <div class="rl-summary-grid">
+          <div class="rl-summary-card">
+            <div class="rl-sc-label">Largest Leakage</div>
+            <div class="rl-sc-value text-danger">Add-to-Cart ($4,662)</div>
+          </div>
+          <div class="rl-summary-card">
+            <div class="rl-sc-label">Recovery Opportunity</div>
+            <div class="rl-sc-value text-success">$1,190</div>
+          </div>
+          <div class="rl-summary-card">
+            <div class="rl-sc-label">Highest Priority</div>
+            <div class="rl-sc-value text-primary">P1 Add-to-Cart Optimization</div>
+          </div>
+          <div class="rl-summary-card">
+            <div class="rl-sc-label">Funnel Health Score</div>
+            <div class="rl-sc-value text-warning">31/100</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Funnel Analysis Table (Full Width) -->
+      <div class="rl-card rl-full-width">
+        <div class="rl-card-title">Funnel Analysis Table</div>
+        <table class="rl-table">
+          <thead>
+            <tr>
+              <th>Stage</th>
+              <th>Users</th>
+              <th>Drop-Off %</th>
+              <th>Revenue Lost</th>
+              <th>Recovery</th>
+              <th>Severity</th>
+              <th>Priority</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Visit → Cart</td>
+              <td>120 → 64</td>
+              <td><span style="color:#DC2626;font-weight:600;">53.3%</span></td>
+              <td>$4,662</td>
+              <td>$932</td>
+              <td><span class="rl-severity rl-sev-critical">Critical</span></td>
+              <td><span class="rl-prio-badge p1">P1</span></td>
+            </tr>
+            <tr>
+              <td>Cart → Checkout</td>
+              <td>64 → 39</td>
+              <td><span style="color:#F59E0B;font-weight:600;">39.1%</span></td>
+              <td>$2,188</td>
+              <td>$257</td>
+              <td><span class="rl-severity rl-sev-warning">Warning</span></td>
+              <td><span class="rl-prio-badge p2">P2</span></td>
+            </tr>
+            <tr>
+              <td>Checkout → Purchase</td>
+              <td>39 → 19</td>
+              <td><span style="color:#F59E0B;font-weight:600;">51.3%</span></td>
+              <td>$1,825</td>
+              <td>$155</td>
+              <td><span class="rl-severity rl-sev-critical">Critical</span></td>
+              <td><span class="rl-prio-badge p1">P1</span></td>
+            </tr>
+            <tr>
+              <td>Purchase → Retain</td>
+              <td>19 → 17</td>
+              <td><span style="color:#16A34A;font-weight:600;">10.5%</span></td>
+              <td>$213</td>
+              <td>$106</td>
+              <td><span class="rl-severity rl-sev-low">Stable</span></td>
+              <td><span class="rl-prio-badge p3">P3</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Rows 3 & 4 (2-Column Details Layout: Bottleneck & Roadmap) -->
+      <div class="rl-details-row">
+        <!-- Left (60%): Primary Bottleneck Analysis -->
+        <div class="rl-card rl-insight-card">
+          <div class="rl-card-title">🔵 Primary Bottleneck Analysis</div>
+          <div class="rl-bottleneck-narrative">
+            <div class="rl-bn-header">
+              <span class="rl-bn-subtitle">PRIMARY BOTTLENECK</span>
+              <span class="rl-bn-title">Add-to-Cart Stage</span>
+            </div>
+            <div class="rl-bn-hero">
+              <span class="rl-bn-stat">75%</span>
+              <span class="rl-bn-stat-desc">of total revenue leakage</span>
+            </div>
+            <div class="rl-bn-metrics">
+              <div class="rl-bn-metric"><span>Revenue Lost:</span> <strong>$4,662</strong></div>
+              <div class="rl-bn-metric"><span>Recovery Opportunity:</span> <strong>$932</strong></div>
+              <div class="rl-bn-metric"><span>Recovery Rate:</span> <strong>20%</strong></div>
+              <div class="rl-bn-metric highlighted"><span>Expected Target Improvement:</span> <strong>+31%</strong></div>
+            </div>
+            <div class="rl-bn-criticality">
+              <span class="rl-bn-crit-label">Criticality Score</span>
+              <span class="rl-bn-crit-value text-danger">95/100 <span class="rl-bn-crit-level">Critical</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right (40%): Revenue Recovery Roadmap -->
+        <div class="rl-card">
+          <div class="rl-card-title">🟢 Revenue Recovery Roadmap</div>
+          <div class="rl-roadmap-kpis">
+            <div class="rl-roadmap-kpi-card p1">
+              <div class="rl-rk-header">
+                <span class="rl-rk-prio">P1</span>
+                <span class="rl-rk-title">Add-to-Cart Optimization</span>
+              </div>
+              <div class="rl-rk-body">
+                <div class="rl-rk-metric"><span>Recovery:</span> <strong>+$932</strong></div>
+                <div class="rl-rk-metric"><span>Timeline:</span> <strong>0–2 Weeks</strong></div>
+                <div class="rl-rk-metric"><span>Priority:</span> <strong class="priority-critical">Critical</strong></div>
+                <div class="rl-rk-metric"><span>Confidence:</span> <strong style="color:var(--success)">High</strong></div>
+                <div class="rl-rk-metric"><span>Owner:</span> <strong>Product Team</strong></div>
+              </div>
+            </div>
+            <div class="rl-roadmap-kpi-card p2">
+              <div class="rl-rk-header">
+                <span class="rl-rk-prio">P2</span>
+                <span class="rl-rk-title">Checkout Recovery</span>
+              </div>
+              <div class="rl-rk-body">
+                <div class="rl-rk-metric"><span>Recovery:</span> <strong>+$257</strong></div>
+                <div class="rl-rk-metric"><span>Timeline:</span> <strong>2–4 Weeks</strong></div>
+                <div class="rl-rk-metric"><span>Priority:</span> <strong class="priority-high">High</strong></div>
+                <div class="rl-rk-metric"><span>Confidence:</span> <strong style="color:var(--warning)">Medium</strong></div>
+                <div class="rl-rk-metric"><span>Owner:</span> <strong>UX/Dev Team</strong></div>
+              </div>
+            </div>
+            <div class="rl-roadmap-kpi-card p3">
+              <div class="rl-rk-header">
+                <span class="rl-rk-prio">P3</span>
+                <span class="rl-rk-title">Retention Program</span>
+              </div>
+              <div class="rl-rk-body">
+                <div class="rl-rk-metric"><span>Recovery:</span> <strong>Strategic</strong></div>
+                <div class="rl-rk-metric"><span>Timeline:</span> <strong>1–2 Months</strong></div>
+                <div class="rl-rk-metric"><span>Priority:</span> <strong class="priority-medium">Medium</strong></div>
+                <div class="rl-rk-metric"><span>Confidence:</span> <strong style="color:var(--success)">High</strong></div>
+                <div class="rl-rk-metric"><span>Owner:</span> <strong>Marketing Team</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOMER HEALTH SECTION (from markdown) -->
+    <section class="section-block" id="customer-health">
+      <div class="section-header">
+        <span class="cat-badge cat-risk">🔴 Customer Health</span>
+      </div>
+      <div class="section-header">
+        <h2>Customer Health Analysis</h2>
+      </div>
+      <div class="exec-verdict" style="background:linear-gradient(135deg,#FEE2E2 0%,#FECACA 100%);border-color:#DC2626;margin-bottom:16px;">
+        <div class="ev-icon">🔴</div>
+        <div class="ev-content">
+          <div class="ev-title" style="color:#991B1B">Executive Insight</div>
+          <div class="ev-text" style="color:#7F1D1D">
+            <strong>80 customers</strong> have churned (48.3%) &middot;
+            Only <strong>13 customers</strong> remain healthy (28.3%) &middot;
+            <strong>28 at-risk customers</strong> require immediate intervention &middot;
+            Customer retention is the <strong>largest long-term growth constraint</strong>
+          </div>
+        </div>
+      </div>
+      <div id="md-customer-health" class="markdown-body"></div>
+    </section>
+
+    <!-- GROWTH OPPORTUNITIES SECTION (from markdown) -->
+    <section class="section-block" id="growth-opportunities">
+      <div class="section-header">
+        <span class="cat-badge cat-opportunity">🟠 Growth Opportunities</span>
+      </div>
+      <div class="section-header">
+        <h2>Growth Opportunities</h2>
+      </div>
+      <div id="md-growth-opportunities" class="markdown-body"></div>
+    </section>
+
+    <!-- STRATEGIC RECOMMENDATIONS (from markdown) -->
+    <section class="section-block" id="recommendations">
+      <div class="section-header">
+        <span class="cat-badge cat-high-roi">🟢 High ROI Recommendations</span>
+      </div>
+      <div class="section-header">
+        <h2>Strategic Recommendations</h2>
+      </div>
+      <div id="md-recommendations" class="markdown-body"></div>
+    </section>
+
+    <!-- FORECAST & OUTLOOK (from markdown - impact summary) -->
+    <section class="section-block" id="forecast-outlook">
+      <div class="section-header">
+        <span class="cat-badge cat-forecast">🔵 Forecast &amp; Strategy</span>
+      </div>
+      <div class="section-header">
+        <h2>Forecast &amp; Business Outlook</h2>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-around;gap:12px;padding:16px 0;flex-wrap:wrap;">
+        <div style="text-align:center;flex:1;min-width:100px;">
+          <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px;">Current Revenue</div>
+          <div style="font-size:22px;font-weight:800;color:var(--danger);">$2,129</div>
+        </div>
+        <div style="font-size:24px;color:var(--text-muted);">→</div>
+        <div style="text-align:center;flex:1;min-width:100px;">
+          <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px;">Expected Revenue</div>
+          <div style="font-size:22px;font-weight:800;color:var(--success);">$3,319</div>
+        </div>
+        <div style="font-size:24px;color:var(--text-muted);">→</div>
+        <div style="text-align:center;flex:1;min-width:100px;">
+          <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px;">Growth</div>
+          <div style="font-size:22px;font-weight:800;color:var(--success);">+56%</div>
+        </div>
+        <div style="font-size:24px;color:var(--text-muted);">→</div>
+        <div style="text-align:center;flex:1;min-width:100px;">
+          <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px;">Forecast Confidence</div>
+          <div style="font-size:22px;font-weight:800;color:var(--primary);">70%</div>
+        </div>
+      </div>
+      <div id="md-forecast" class="markdown-body"></div>
+      <div style="margin-top:12px;" id="enhanced-impact-container"></div>
+    </section>
+
+    <!-- KPI TARGETS -->
+    <section class="section-block" id="kpi-targets">
+      <div class="section-header">
+        <span class="cat-badge cat-forecast">🔵 Performance Tracking</span>
+      </div>
+      <div class="section-header">
+        <h2>KPI Targets &amp; Performance Tracking</h2>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:6px;padding:6px 14px;background:#DCFCE7;border-radius:6px;font-size:12px;font-weight:600;color:#166534;"><span style="font-size:16px;">🟢</span> On Track: <span id="kpi-on-track">1</span></div>
+        <div style="display:flex;align-items:center;gap:6px;padding:6px 14px;background:#FEF3C7;border-radius:6px;font-size:12px;font-weight:600;color:#92400E;"><span style="font-size:16px;">🟡</span> Monitor: <span id="kpi-monitor">2</span></div>
+        <div style="display:flex;align-items:center;gap:6px;padding:6px 14px;background:#FEE2E2;border-radius:6px;font-size:12px;font-weight:600;color:#991B1B;"><span style="font-size:16px;">🔴</span> Needs Attention: <span id="kpi-attention">3</span></div>
+      </div>
+      <div id="md-kpi" class="markdown-body"></div>
+      <div style="margin-top:12px;" id="enhanced-kpi-container"></div>
+    </section>
+
+    <!-- ACTION ROADMAP -->
+    <section class="section-block" id="action-roadmap">
+      <div class="section-header">
+        <span class="cat-badge cat-high-roi">🟢 Execution Plan</span>
+      </div>
+      <div class="section-header">
+        <h2>Action Roadmap</h2>
+      </div>
+      <div id="md-roadmap" class="markdown-body"></div>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;padding:16px;background:var(--bg);border-radius:var(--radius-sm);">
+        <div style="flex:1;min-width:120px;text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px;">Weeks 1–2</div>
+          <div style="height:4px;background:linear-gradient(90deg,var(--danger),var(--warning));border-radius:2px;margin:6px 0;"></div>
+          <div style="font-size:11px;color:var(--text-secondary);">Checkout Fix<br>Cart Recovery</div>
+        </div>
+        <div style="flex:1;min-width:120px;text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px;">Weeks 3–4</div>
+          <div style="height:4px;background:linear-gradient(90deg,var(--warning),var(--primary));border-radius:2px;margin:6px 0;"></div>
+          <div style="font-size:11px;color:var(--text-secondary);">Referral Launch<br>Premium Campaigns</div>
+        </div>
+        <div style="flex:1;min-width:120px;text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px;">Month 2</div>
+          <div style="height:4px;background:linear-gradient(90deg,var(--primary),var(--info));border-radius:2px;margin:6px 0;"></div>
+          <div style="font-size:11px;color:var(--text-secondary);">Retention Program<br>Loyalty System</div>
+        </div>
+        <div style="flex:1;min-width:120px;text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px;">Month 3</div>
+          <div style="height:4px;background:linear-gradient(90deg,var(--info),var(--success));border-radius:2px;margin:6px 0;"></div>
+          <div style="font-size:11px;color:var(--text-secondary);">Optimize &amp; Scale<br>Review KPIs</div>
+        </div>
+      </div>
+      <div class="conclusion-grid" style="margin-top:20px;">
+        <div class="conclusion-card">
+          <h4><i class="fa-solid fa-bullseye" style="color:var(--primary)"></i> Executive Recommendation</h4>
+          <p style="font-size:12px;color:var(--text-secondary);margin:0 0 8px;">The following three actions will deliver the highest revenue impact within 90 days:</p>
+        </div>
+        <div class="conclusion-card">
+          <h4><i class="fa-solid fa-chart-line" style="color:var(--success)"></i> Expected Business Impact</h4>
+          <ul>
+            <li><span class="prio-num" style="background:var(--success)">$</span> Expected Revenue Impact: <strong>$2,600–$4,100</strong></li>
+            <li><span class="prio-num" style="background:var(--danger)">!</span> Revenue At Risk: <strong>$6,888</strong></li>
+            <li><span class="prio-num" style="background:var(--primary)">✓</span> Recoverable: <strong>$1,519</strong></li>
+          </ul>
+        </div>
+        <div class="conclusion-card">
+          <h4><i class="fa-solid fa-list-check" style="color:var(--warning)"></i> Priority 1</h4>
+          <ul>
+            <li><span class="prio-num">1</span> Fix checkout drop-off (51.3% loss) · <strong>Product + Engineering</strong></li>
+            <li><span class="prio-num" style="background:var(--warning);color:#fff;">2</span> Recover cart abandonments (53.3% loss) · <strong>Growth + CRM</strong></li>
+            <li><span class="prio-num" style="background:var(--success);color:#fff;">3</span> Launch retention program (28.3% → 35–40%) · <strong>CRM + CS</strong></li>
+          </ul>
+        </div>
+        <div class="conclusion-card">
+          <h4><i class="fa-solid fa-calendar-week" style="color:var(--info)"></i> Next Quarter Focus Areas</h4>
+          <ul>
+            <li>▶ Reduce checkout abandonment by 25–30% through form optimization + guest checkout</li>
+            <li>▶ Recover 15–20% of cart abandonments via email sequences + exit-intent popups</li>
+            <li>▶ Improve retention from 28.3% → 35–40% with post-purchase + re-engagement programs</li>
+          </ul>
+        </div>
+        <div class="conclusion-card conclusion-highlight">
+          <h4><i class="fa-solid fa-rocket"></i> Decision Brief</h4>
+          <ul>
+            <li><strong>Total Recoverable Revenue:</strong> $2,600–$4,100 across 5 initiatives</li>
+            <li><strong>Conversion Lift:</strong> 15.8% → 20–22% (+30–40%)</li>
+            <li><strong>Timeline:</strong> 90-day execution window</li>
+            <li><strong>Priority:</strong> Checkout → Cart → Retention</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPENDIX (from markdown) -->
+    <section class="section-block" id="appendix" style="opacity:0.75;">
+      <div class="section-header" style="margin-bottom:8px;">
+        <span class="cat-badge cat-appendix">⚪ Appendix</span>
+        <h2 style="font-size:16px;">Appendix</h2>
+      </div>
+      <div style="font-size:12px;">
+        <details>
+          <summary style="cursor:pointer;font-size:12px;font-weight:600;color:var(--text-secondary);padding:4px 0;">Click to expand A/B Testing Roadmap &amp; supporting data</summary>
+          <div id="md-appendix" class="markdown-body" style="margin-top:8px;"></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="report-footer">
+      <div class="footer-title">Executive Customer Journey Intelligence Platform</div>
+      <div class="footer-divider"></div>
+      <div class="footer-author">Prepared By: <strong>Girish Shenoy</strong></div>
+      <div class="footer-tags">
+        <span>Business Analytics Portfolio Project</span>
+        <span>Executive Reporting &amp; Decision Intelligence</span>
+      </div>
+      <div class="footer-legal" style="margin-top:6px;font-size:10px;">Report Version 2.0 &middot; Generated: <span id="footer-date"></span></div>
+      <div class="footer-legal">Dataset: Simulated Enterprise Customer Journey Dataset (120 records, 5 regions, 6 channels)</div>
+      <div class="footer-legal" style="font-size:9px;color:var(--text-muted);margin-top:2px;">Portfolio Demonstration Project &middot; Educational Use Only</div>
+    </footer>
+
+  </main>
+</div>
+</div>
+
+<!-- SCROLL TO TOP -->
+<a class="scroll-top" id="scrollTop" href="#" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></a>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // === DATES ===
+  var now = new Date();
+  var dateStr = now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+  document.getElementById('cover-date').textContent = dateStr;
+  document.getElementById('meta-date').textContent = dateStr;
+  var fd = document.getElementById('footer-date');
+  if (fd) fd.textContent = dateStr;
+
+  // === CANVAS SNAPSHOTS ===
+  function drawRlFunnel() {
+    var c = document.getElementById('rl-chart-funnel');
+    if (!c) return;
+    var ctx = c.getContext('2d');
+    var dpr = devicePixelRatio || 1;
+    c.width = c.offsetWidth * dpr;
+    c.height = 130 * dpr;
+    ctx.scale(dpr, dpr);
+    var w = c.offsetWidth, h = 130;
+    var stages = [
+      { label: 'Visit', val: 120, color: '#2563EB' },
+      { label: 'Cart', val: 64, color: '#3B82F6' },
+      { label: 'Checkout', val: 39, color: '#60A5FA' },
+      { label: 'Purchase', val: 19, color: '#93C5FD' },
+      { label: 'Retain', val: 17, color: '#BFDBFE' }
+    ];
+    var maxVal = 120;
+    var barW = (w - 60) / stages.length;
+    stages.forEach(function(s, i) {
+      var x = 30 + i * barW + (barW - 20) / 2;
+      var barH = (s.val / maxVal) * 60;
+      var y = 75 - barH;
+      ctx.fillStyle = s.color;
+      ctx.beginPath();
+      ctx.roundRect(x, y, 20, barH, [3,3,0,0]);
+      ctx.fill();
+      ctx.fillStyle = '#475569';
+      ctx.font = '9px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(s.val, x + 10, 98);
+      ctx.fillText(s.label, x + 10, 112);
+    });
+    // draw drop-off % arrows
+    var dropOffs = ['', '-46.7%', '-39.1%', '-51.3%', '-10.5%'];
+    ctx.fillStyle = '#DC2626';
+    ctx.font = 'bold 8px Inter, sans-serif';
+    stages.forEach(function(s, i) {
+      if (dropOffs[i]) {
+        var x = 30 + i * barW + (barW - 20) / 2;
+        ctx.fillText(dropOffs[i], x + 10, 78);
+      }
+    });
+  }
+
+  function drawHealth() {
+    var c = document.getElementById('chart-health');
+    if (!c) return;
+    var ctx = c.getContext('2d');
+    var w = c.width = c.offsetWidth * (devicePixelRatio || 1);
+    var h = c.height = 100 * (devicePixelRatio || 1);
+    ctx.scale(devicePixelRatio || 1, devicePixelRatio || 1);
+    w = c.offsetWidth; h = 100;
+    var data = [
+      { label: 'Healthy', val: 34, pct: '28.3%', color: '#16A34A' },
+      { label: 'At Risk', val: 28, pct: '23.3%', color: '#F59E0B' },
+      { label: 'Churned', val: 58, pct: '48.3%', color: '#DC2626' }
+    ];
+    var total = 120;
+    var cx = 55, cy = 40, r = 28;
+    var startAngle = -Math.PI / 2;
+    data.forEach(function(d) {
+      var sliceAngle = (d.val / total) * 2 * Math.PI;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, r, startAngle, startAngle + sliceAngle);
+      ctx.closePath();
+      ctx.fillStyle = d.color;
+      ctx.fill();
+      startAngle += sliceAngle;
+    });
+    ctx.beginPath();
+    ctx.arc(cx, cy, r * 0.55, 0, 2 * Math.PI);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 10px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('120', cx, cy + 3);
+    // legend
+    data.forEach(function(d, i) {
+      var lx = 90, ly = 12 + i * 20;
+      ctx.fillStyle = d.color;
+      ctx.fillRect(lx, ly, 8, 8);
+      ctx.fillStyle = '#475569';
+      ctx.font = '9px Inter, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText(d.pct + ' ' + d.label, lx + 12, ly + 7);
+    });
+  }
+
+  function drawForecast() {
+    var c = document.getElementById('chart-forecast');
+    if (!c) return;
+    var ctx = c.getContext('2d');
+    var w = c.width = c.offsetWidth * (devicePixelRatio || 1);
+    var h = c.height = 100 * (devicePixelRatio || 1);
+    ctx.scale(devicePixelRatio || 1, devicePixelRatio || 1);
+    w = c.offsetWidth; h = 100;
+    var data = [
+      { label: 'Q1', val: 12.5 },
+      { label: 'Q2', val: 15.8 },
+      { label: 'Q3(f)', val: 21 },
+      { label: 'Q4(f)', val: 24 }
+    ];
+    var maxVal = 28;
+    var minVal = 10;
+    var pad = { top: 5, bottom: 16, left: 5, right: 5 };
+    var chartW = w - pad.left - pad.right;
+    var chartH = h - pad.top - pad.bottom;
+    ctx.beginPath();
+    data.forEach(function(d, i) {
+      var x = pad.left + (i / (data.length - 1)) * chartW;
+      var y = pad.top + chartH - ((d.val - minVal) / (maxVal - minVal)) * chartH;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.strokeStyle = '#2563EB';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    // fill
+    ctx.lineTo(pad.left + chartW, pad.top + chartH);
+    ctx.lineTo(pad.left, pad.top + chartH);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(37,99,235,0.1)';
+    ctx.fill();
+    // dots + labels
+    data.forEach(function(d, i) {
+      var x = pad.left + (i / (data.length - 1)) * chartW;
+      var y = pad.top + chartH - ((d.val - minVal) / (maxVal - minVal)) * chartH;
+      ctx.beginPath();
+      ctx.arc(x, y, 3, 0, 2 * Math.PI);
+      ctx.fillStyle = '#2563EB';
+      ctx.fill();
+      ctx.fillStyle = '#475569';
+      ctx.font = '7px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(d.val + '%', x, y - 7);
+      ctx.fillText(d.label, x, pad.top + chartH + 12);
+    });
+  }
+
+  // Draw all charts with debounce
+  function drawAllCharts() {
+    drawRlFunnel();
+    drawHealth();
+    drawForecast();
+  }
+  drawAllCharts();
+  window.addEventListener('resize', drawAllCharts);
+
+  // === MARKDOWN LOADING & PROCESSING ===
+  var contentEl = document.getElementById('md-recommendations');
+  var tocList = document.getElementById('toc-list');
+
+  function categorizeRecommendation(title) {
+    var t = title.toLowerCase();
+    // Revenue Risks: route to 'other' (now handled in static Revenue Leakage section)
+    if (t.includes('central region') || t.includes('social media') || t.includes('email channel')) return 'other';
+    // Customer Health: Retention
+    if (t.includes('retention') && !t.includes('email')) return 'health';
+    // Growth Opportunities: Premium, Referral, Summer Sale
+    if (t.includes('premium') || t.includes('referral') || t.includes('summer sale')) return 'growth';
+    // Strategic Recommendations: Cart, Checkout
+    if (t.includes('cart') || t.includes('checkout')) return 'recs';
+    return 'recs';
+  }
+
+  function preprocessAlerts(text) {
+    var lines = text.split('\n');
+    var result = [];
+    var inAlert = false;
+    var alertType = '';
+    var alertContent = [];
+
+    for (var i = 0; i < lines.length; i++) {
+      var rawLine = lines[i];
+      var trimmedLine = rawLine.trim();
+
+      if (trimmedLine.match(/^> \[!(IMPORTANT|NOTE|WARNING|TIP|CAUTION)\]/i)) {
+        if (inAlert) {
+          result.push(renderAlert(alertType, alertContent.join('\n')));
+        }
+        inAlert = true;
+        alertType = trimmedLine.match(/^>\s*\[!(IMPORTANT|NOTE|WARNING|TIP|CAUTION)\]/i)[1].toUpperCase();
+        alertContent = [];
+        continue;
+      }
+
+      if (inAlert) {
+        if (trimmedLine.startsWith('>')) {
+          alertContent.push(trimmedLine.replace(/^>\s?/, ''));
+        } else {
+          inAlert = false;
+          result.push(renderAlert(alertType, alertContent.join('\n')));
+          result.push(rawLine);
+        }
+      } else {
+        result.push(rawLine);
+      }
+    }
+    if (inAlert) result.push(renderAlert(alertType, alertContent.join('\n')));
+    return result.join('\n');
+  }
+
+  function renderAlert(type, content) {
+    var icon = 'fa-circle-info';
+    var title = 'NOTE';
+    if (type === 'IMPORTANT') { icon = 'fa-circle-exclamation'; title = 'IMPORTANT DIRECTIVE'; }
+    else if (type === 'WARNING') { icon = 'fa-triangle-exclamation'; title = 'WARNING'; }
+    else if (type === 'TIP') { icon = 'fa-lightbulb'; title = 'STRATEGIC TIP'; }
+    else if (type === 'CAUTION') { icon = 'fa-hand'; title = 'CAUTION'; }
+    var parsedContent = marked.parse(content);
+    return '<div class="alert-box alert-' + type.toLowerCase() + '">' +
+      '<div class="alert-header"><i class="fa-solid ' + icon + '"></i> <span>' + title + '</span></div>' +
+      '<div class="alert-body">' + parsedContent + '</div></div>';
+  }
+
+  function preprocessMarkdown(text) {
+    // First pass: convert GitHub-style alerts
+    text = preprocessAlerts(text);
+
+    var lines = text.split('\n');
+    var result = [];
+    var inRec = false;
+    var recCategory = '';
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      var recMatch = line.match(/^## (Recommendation \d+: .+?) \((High|Medium|Low) Impact\)/);
+      if (recMatch) {
+        if (inRec) result.push('</div>\n</div>\n</div>');
+        inRec = true;
+        var priority = recMatch[2].toLowerCase();
+        var recTitle = recMatch[1];
+        var category = categorizeRecommendation(recTitle);
+        recCategory = category;
+
+        // Category-specific indicators
+        var chipsHtml = '';
+        if (category === 'risks') {
+          chipsHtml =
+            '<span class="rec-chip" style="background:#FEE2E2;color:#991B1B"><i class="fa-solid fa-triangle-exclamation"></i> Revenue at Risk: $600–1,200</span>' +
+            '<span class="rec-chip" style="background:#FEE2E2;color:#991B1B"><i class="fa-solid fa-users"></i> Customers: 16–35</span>' +
+            '<span class="rec-chip" style="background:#FEF3C7;color:#92400E"><i class="fa-solid fa-rotate-left"></i> Recovery: Medium</span>' +
+            '<span class="rec-chip" style="background:#FEE2E2;color:#991B1B"><i class="fa-solid fa-bell"></i> Severity: ' + recMatch[2].toUpperCase() + '</span>';
+        } else if (category === 'growth') {
+          chipsHtml =
+            '<span class="rec-chip rc-revenue"><i class="fa-solid fa-dollar-sign"></i> Potential: $300–1,200</span>' +
+            '<span class="rec-chip rc-confidence"><i class="fa-solid fa-chart-simple"></i> ROI: 2.5–3.5x</span>' +
+            '<span class="rec-chip rc-timeline"><i class="fa-solid fa-clock"></i> Timeline: 4–8 weeks</span>' +
+            '<span class="rec-chip rc-revenue"><i class="fa-solid fa-check-circle"></i> Confidence: High</span>';
+        } else if (category === 'health') {
+          chipsHtml =
+            '<span class="rec-chip" style="background:#FEE2E2;color:#991B1B"><i class="fa-solid fa-heart-crack"></i> Churn Rate: 48.3%</span>' +
+            '<span class="rec-chip rc-timeline"><i class="fa-solid fa-clock"></i> Timeline: 8–12 weeks</span>' +
+            '<span class="rec-chip rc-confidence"><i class="fa-solid fa-chart-simple"></i> Confidence: High</span>' +
+            '<span class="rec-chip rc-revenue"><i class="fa-solid fa-rotate-left"></i> Recovery: $600–1,000</span>';
+        } else {
+          // Strategic recommendations
+          chipsHtml =
+            '<span class="rec-chip rc-revenue"><i class="fa-solid fa-dollar-sign"></i> Revenue: $400–800</span>' +
+            '<span class="rec-chip" style="background:#DBEAFE;color:#1E40AF"><i class="fa-solid fa-gear"></i> Difficulty: Medium</span>' +
+            '<span class="rec-chip rc-confidence"><i class="fa-solid fa-chart-simple"></i> Confidence: High</span>' +
+            '<span class="rec-chip rc-timeline"><i class="fa-solid fa-clock"></i> Time-to-Value: 2–4 weeks</span>';
+        }
+
+        result.push('<div class="rec-card rec-' + priority + '" data-category="' + category + '">');
+        result.push('<div class="rec-summary">');
+        result.push('<div class="rec-indicator"></div>');
+        result.push('<div class="rec-summary-main">');
+        result.push('<div class="rec-summary-top">');
+        result.push('<span class="rec-priority-badge badge-' + priority + '-impact">' + recMatch[2] + ' Impact</span>');
+        result.push('<h3 class="rec-title">' + recTitle + '</h3>');
+        result.push('</div>');
+        result.push('<div class="rec-meta-chips">' + chipsHtml + '</div>');
+        result.push('<button class="rec-toggle" onclick="toggleRec(this)"><i class="fa-solid fa-chevron-down"></i> Show Details</button>');
+        result.push('</div></div>');
+        result.push('<div class="rec-details"><div class="rec-details-inner markdown-body">');
+        continue;
+      }
+
+      if (inRec && line.trim() === '---') {
+        result.push('</div>\n</div>\n</div>');
+        inRec = false;
+        continue;
+      }
+
+      result.push(line);
+    }
+
+    if (inRec) result.push('</div>\n</div>\n</div>');
+    return result.join('\n');
+  }
+
+  function toggleRec(btn) {
+    var details = btn.closest('.rec-summary').nextElementSibling;
+    if (details && details.classList.contains('rec-details')) {
+      details.classList.toggle('open');
+      btn.classList.toggle('open');
+      if (details.classList.contains('open')) {
+        btn.innerHTML = '<i class="fa-solid fa-chevron-up"></i> Hide Details';
+      } else {
+        btn.innerHTML = '<i class="fa-solid fa-chevron-down"></i> Show Details';
+      }
+    }
+  }
+  window.toggleRec = toggleRec;
+
+  // Build enhanced impact summary
+  function buildEnhancedImpact() {
+    var container = document.getElementById('enhanced-impact-container');
+    if (!container) return;
+    var html = '<table class="impact-table">';
+    html += '<tr><th>Recommendation</th><th>Revenue Impact</th><th>Impact Score</th><th>Priority</th><th>Expected ROI</th><th>Business Impact</th></tr>';
+    var recs = [
+      { name: '#1 Cart Abandonment', rev: '$500–800', score: 90, priority: 5, roi: '4.2x', impact: 'High', roiClass: 'roi-high', impactColor: '#DC2626' },
+      { name: '#2 Checkout Opt.', rev: '$400–600', score: 85, priority: 5, roi: '3.8x', impact: 'High', roiClass: 'roi-high', impactColor: '#DC2626' },
+      { name: '#3 Premium Segment', rev: '$800–1,200', score: 80, priority: 4, roi: '3.5x', impact: 'High', roiClass: 'roi-high', impactColor: '#DC2626' },
+      { name: '#4 Referral Channel', rev: '$300–500', score: 70, priority: 4, roi: '3.1x', impact: 'Medium', roiClass: 'roi-medium', impactColor: '#F59E0B' },
+      { name: '#5 Central Region', rev: '$100–200', score: 40, priority: 2, roi: '1.5x', impact: 'Low', roiClass: 'roi-low', impactColor: '#2563EB' },
+      { name: '#6 Summer Sale', rev: '$200–400', score: 60, priority: 3, roi: '2.5x', impact: 'Medium', roiClass: 'roi-medium', impactColor: '#F59E0B' },
+      { name: '#7 Retention Prog.', rev: '$600–1,000', score: 85, priority: 5, roi: '4.0x', impact: 'High', roiClass: 'roi-high', impactColor: '#DC2626' },
+      { name: '#8 Social Media', rev: '$100–200', score: 45, priority: 2, roi: '1.8x', impact: 'Low', roiClass: 'roi-low', impactColor: '#2563EB' },
+      { name: '#9 Email Revital.', rev: '$200–300', score: 55, priority: 3, roi: '2.2x', impact: 'Medium', roiClass: 'roi-medium', impactColor: '#F59E0B' }
+    ];
+    recs.forEach(function(r) {
+      var stars = '';
+      for (var s = 0; s < 5; s++) stars += '<span class="' + (s < r.priority ? '' : 'empty') + '">★</span>';
+      html += '<tr>';
+      html += '<td>' + r.name + '</td>';
+      html += '<td>' + r.rev + '</td>';
+      html += '<td><div class="impact-bar"><div class="impact-bar-fill" style="width:' + r.score + '%;background:linear-gradient(90deg,' + r.impactColor + ',transparent)"></div></div></td>';
+      html += '<td class="stars">' + stars + '</td>';
+      html += '<td><span class="roi-badge ' + r.roiClass + '">' + r.roi + '</span></td>';
+      html += '<td><span class="biz-impact" style="color:' + r.impactColor + '">' + r.impact + '</span></td>';
+      html += '</tr>';
+    });
+    html += '</table>';
+    container.innerHTML = html;
+  }
+
+  // Build enhanced KPI targets table
+  function buildEnhancedKPI() {
+    var container = document.getElementById('enhanced-kpi-container');
+    if (!container) return;
+    var html = '<table class="kpi-table">';
+    html += '<tr><th>KPI</th><th>Current</th><th>Target</th><th>Gap</th><th>Status</th><th>Trend</th><th>Owner</th></tr>';
+    var kpis = [
+      { name: 'Conversion Rate', cur: '15.8%', tgt: '20–22%', gap: '+4.2%', gapClass: 'gap-medium', status: '🟡 Monitor', statusClass: 'status-monitor', trend: '▲', trendClass: 'trend-up', owner: 'Growth Team' },
+      { name: 'Retention Rate', cur: '28.3%', tgt: '35–40%', gap: '+6.7%', gapClass: 'gap-high', status: '🔴 Needs Attention', statusClass: 'status-attention', trend: '▼', trendClass: 'trend-down', owner: 'CRM + CS' },
+      { name: 'Add-to-Cart Rate', cur: '46.7%', tgt: '55–60%', gap: '+8.3%', gapClass: 'gap-high', status: '🔴 Needs Attention', statusClass: 'status-attention', trend: '→', trendClass: 'trend-stable', owner: 'Product Team' },
+      { name: 'Checkout Completion', cur: '48.7%', tgt: '60–65%', gap: '+11.3%', gapClass: 'gap-high', status: '🔴 Needs Attention', statusClass: 'status-attention', trend: '▼', trendClass: 'trend-down', owner: 'Product + Eng' },
+      { name: 'Avg Purchase Value', cur: '$112.08', tgt: '$120–130', gap: '+$7.92', gapClass: 'gap-medium', status: '🟡 Monitor', statusClass: 'status-monitor', trend: '▲', trendClass: 'trend-up', owner: 'Marketing' },
+      { name: 'Customer Feedback', cur: '3.62 / 5', tgt: '4.0 / 5', gap: '+0.38', gapClass: 'gap-low', status: '🟢 On Track', statusClass: 'status-on-track', trend: '▲', trendClass: 'trend-up', owner: 'Customer Success' }
+    ];
+    kpis.forEach(function(k) {
+      html += '<tr>';
+      html += '<td><strong>' + k.name + '</strong></td>';
+      html += '<td>' + k.cur + '</td>';
+      html += '<td>' + k.tgt + '</td>';
+      html += '<td class="gap-value ' + k.gapClass + '">' + k.gap + '</td>';
+      html += '<td><span class="status-badge ' + k.statusClass + '">' + k.status + '</span></td>';
+      html += '<td><span class="' + k.trendClass + '">' + k.trend + '</span></td>';
+      html += '<td>' + k.owner + '</td>';
+      html += '</tr>';
+    });
+    html += '</table>';
+    container.innerHTML = html;
+  }
+
+  // Scroll spy
+  function initScrollSpy() {
+    var sections = document.querySelectorAll('.section-block');
+    var navLinks = document.querySelectorAll('.exec-nav-list a');
+    if (!sections.length || !navLinks.length) return;
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          navLinks.forEach(function(link) {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { rootMargin: '-80px 0px -65% 0px' });
+
+    sections.forEach(function(s) { observer.observe(s); });
+  }
+
+  // Nav click smooth scroll
+  document.querySelectorAll('.exec-nav-list a').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Scroll to top
+  var scrollTopBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', function() {
+    scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+  });
+  scrollTopBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Fetch and render markdown
+  fetch('business_recommendations_report.md')
+    .then(function(response) {
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      return response.text();
+    })
+    .then(function(markdownText) {
+      // Route markdown sections to their target containers
+      var mdLines = markdownText.split('\n');
+      var currentMD = 'other';
+      var mdSections = { recs: [], health: [], growth: [], other: [], forecast: [], kpi: [], roadmap: [], appendix: [] };
+
+      for (var i = 0; i < mdLines.length; i++) {
+        var line = mdLines[i];
+
+        if (line.match(/^## Recommendation \d+: .+?/)) {
+          var cat = categorizeRecommendation(line);
+          currentMD = cat;
+        } else if (line.match(/^## Projected Impact Summary/)) {
+          currentMD = 'forecast';
+        } else if (line.match(/^## A\/B Testing Roadmap/)) {
+          currentMD = 'appendix';
+        } else if (line.match(/^## KPI Targets/)) {
+          currentMD = 'kpi';
+        } else if (line.match(/^---$/)) {
+          // Keep horizontal rules as-is
+        }
+
+        mdSections[currentMD].push(line);
+      }
+
+      function renderSection(lines) {
+        if (!lines || lines.length === 0) return '';
+        var preprocessed = preprocessMarkdown(lines.join('\n'));
+        return marked.parse(preprocessed);
+      }
+
+      document.getElementById('md-customer-health').innerHTML = renderSection(mdSections.health);
+      document.getElementById('md-growth-opportunities').innerHTML = renderSection(mdSections.growth);
+      document.getElementById('md-recommendations').innerHTML = renderSection(mdSections.recs);
+      document.getElementById('md-forecast').innerHTML = renderSection(mdSections.forecast);
+      document.getElementById('md-kpi').innerHTML = renderSection(mdSections.kpi);
+      document.getElementById('md-roadmap').innerHTML = renderSection(mdSections.other);
+      document.getElementById('md-appendix').innerHTML = renderSection(mdSections.appendix);
+
+      // Build enhanced tables
+      buildEnhancedImpact();
+      buildEnhancedKPI();
+
+      // Init scroll spy after content loaded
+      initScrollSpy();
+    })
+    .catch(function(error) {
+      console.error('Error loading report:', error);
+      document.getElementById('md-recommendations').innerHTML =
+        '<div class="error-message">' +
+        '<strong><i class="fa-solid fa-circle-exclamation"></i> Preview Render Error</strong><br><br>' +
+        'This browser security block occurs when opening HTML files directly from your local filesystem using the <code>file://</code> protocol.' +
+        '<br><br>' +
+        '<strong>To view this report on your local machine:</strong><br>' +
+        '1. Run a local development server in this directory (e.g. run <code>python -m http.server 8000</code>).<br>' +
+        '2. Open <code>http://localhost:8000/docs/preview_report.html</code> in your browser.<br><br>' +
+        '<strong>On GitHub Pages:</strong><br>' +
+        'This button will work <strong>automatically</strong> and render beautifully without any configuration once the project is pushed and deployed!' +
+        '</div>';
+    });
+});
+</script>
+</body>
+</html>
